@@ -57,54 +57,11 @@
       return [xi, xi_prime, yi, yi_prime];
     },
 
-    // Returns angle C using law of cosines
-    // Returns deg
-    // From: http://nayuki.eigenstate.org/res/triangle-solver-javascript/
-    // triangle-solver.js
-    /*solveAngle: function(a, b, c) {
-      var temp = (a * a + b * b - c * c) / (2 * a * b);
-      if (temp >= -1 && temp <= 1) {
-        return radToDeg(Math.acos(temp));
-      } else {
-        throw "No solution";
-      }
-    },*/
-
-    // Solve a triangle when 3 side lengths are known
-    // Returns deg
-    // From: http://nayuki.eigenstate.org/res/triangle-solver-javascript/
-    // triangle-solver.js
-    /*sss: function(a, b, c) {
-      if (a + b <= c || b + c <= a || c + a <= b) {
-        throw "No solution";
-      }
-
-      return {
-        A: trig.solveAngle(b, c, a),
-        B: trig.solveAngle(c, a, b),
-        C: trig.solveAngle(a, b, c)
-      };
-    },*/
-
     // From: http://nayuki.eigenstate.org/res/triangle-solver-javascript/
     // triangle-solver.js
     degToRad: function(x) {
       return x / 180 * Math.PI;
     }
-
-    // From: http://nayuki.eigenstate.org/res/triangle-solver-javascript/
-    // triangle-solver.js
-    /*radToDeg: function(x) {
-      return x / Math.PI * 180;
-    },*/
-
-    /*distanceBetween2Points: function(x0, y0, x1, y1) {
-      var dx = x1 - x0
-        , dy = y1 - y0;
-
-      // Determine the straight-line distance between the centers.
-      return Math.sqrt((dy * dy) + (dx * dx));
-    },*/
   };
 
   var Bike = global.Bike = function() {
