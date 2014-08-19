@@ -157,6 +157,8 @@
     this.upperLegLength = 110;
     this.lowerLegLength = 110;
 
+    this.pedalAngle = 90;
+
     this.kneeSide = 'right';
   };
 
@@ -229,11 +231,17 @@
       x: this.frontWheel.center.x,
       y: this.frontWheel.center.y + this.frontWheel.radius
     };
+
+    this.updateLegs();
   };
 
-  Bike.prototype.setPedalAngle = function(angle) {
-    this.ankle.x = (this.pedal.radius * Math.cos(angle)) + this.bottomBracket.x;
-    this.ankle.y = (this.pedal.radius * Math.sin(angle)) + this.bottomBracket.y;
+  Bike.prototype.updateLegs = function() {
+    var angleRad = trig.degToRad(this.pedalAngle);
+
+    this.ankle.x = (this.pedal.radius * Math.cos(angleRad))
+                    + this.bottomBracket.x;
+    this.ankle.y = (this.pedal.radius * Math.sin(angleRad))
+                    + this.bottomBracket.y;
 
     // This is the clever bit
     // We know 2 points (hip and ankle) and the length of the
