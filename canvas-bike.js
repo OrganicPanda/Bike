@@ -81,7 +81,7 @@
     this.drawLine(
       this.bike.handlebar.left, this.bike.handlebar.right, 'purple');
     this.drawLine(
-      this.bike.seat.left, this.bike.seat.right, 'purple');
+      this.bike.seat.back, this.bike.seat.front, 'purple');
 
     this.drawCircle(
       this.bike.bottomBracket, this.bike.pedal.radius / 2, 'pink');

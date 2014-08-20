@@ -80,10 +80,14 @@
       length: 150
     };
     this.chainStay = { length: 110 };
-    this.seatPost = { top: { x: 165, y: 200 } };
+    this.seatPost = {
+      top: { x: 165, y: 200 },
+      length: 30
+    };
     this.seat = {
-      left: { x: 160, y: 200 },
-      right: { x: 180, y: 200 }
+      back: { x: 160, y: 200 },
+      front: { x: 180, y: 200 },
+      length: 20
     };
     this.headTube = {
       bottom: { x: null, y: null },
@@ -124,12 +128,14 @@
     this.rearWheel.floor = pos;
   };
 
-  Bike.prototype.update = function() {
+  Bike.prototype.updateRearWheel = function() {
     this.rearWheel.center = {
       x: this.rearWheel.floor.x,
       y: (this.rearWheel.floor.y - this.rearWheel.radius)
     };
+  };
 
+  Bike.prototype.updateBottomBracket = function() {
     // The bottom bracket position can be computed relative to the rear wheel
     // center using the chain stay length and the bottom bracket drop
     this.bottomBracket.x = this.rearWheel.center.x + trig.hypot(
@@ -137,7 +143,9 @@
       this.chainStay.length
     );
     this.bottomBracket.y = this.rearWheel.center.y + this.bottomBracket.drop;
+  };
 
+  Bike.prototype.updateSeatTube = function() {
     // The top of the seat tube is calculated relative to the bottom bracket
     // using the seat tube angle and length
     var seatTubeAngleRad = trig.degToRad(this.seatTube.angle)
@@ -146,7 +154,29 @@
 
     this.seatTube.top.x = this.bottomBracket.x - seatTubeWidth;
     this.seatTube.top.y = this.bottomBracket.y - seatTubeHeight;
+  };
 
+  Bike.prototype.updateSeatPost = function() {
+    // The top of the seat post is calculated relative to the top of the
+    // seat tube using the seat tube angle and seat post length
+    var seatPostAngleRad = trig.degToRad(this.seatTube.angle)
+      , seatPostHeight = Math.sin(seatPostAngleRad) * this.seatPost.length
+      , seatPostWidth = Math.cos(seatPostAngleRad) * this.seatPost.length;
+
+    this.seatPost.top.x = this.seatTube.top.x - seatPostWidth;
+    this.seatPost.top.y = this.seatTube.top.y - seatPostHeight;
+  };
+
+  Bike.prototype.updateSeat = function() {
+    // The back of the seat meets the top of the seat post for now.
+    // Assuming it's straight as well
+    this.seat.back.x = this.seatPost.top.x;
+    this.seat.back.y = this.seatPost.top.y;
+    this.seat.front.x = this.seat.back.x + this.seat.length;
+    this.seat.front.y = this.seat.back.y;
+  };
+
+  Bike.prototype.updateHeadTube = function() {
     // The top of the head tube is decided relative to the bottom bracket
     // using a rectangle of the stack (height) and reach (width)
     this.headTube.top.x = this.bottomBracket.x + this.reach;
@@ -160,14 +190,17 @@
 
     this.headTube.bottom.x = this.headTube.top.x + headTubeWidth;
     this.headTube.bottom.y = this.headTube.top.y + headTubeHeight;
+  };
 
+  Bike.prototype.updateRake = function() {
     // Rake is a bit more complicated. We need 2 steps
 
     // First let's find the point at which the fork would meet the
     // center of the wheel if it were straight and the same angle
     // as the headtube. We'll call this straightFork.bottom. This is a simple
     // triangle
-    var straightForkHeight = this.rearWheel.center.y - this.headTube.bottom.y
+    var headTubeAngleRad = trig.degToRad(this.headTube.angle) // TODO: DRY
+      , straightForkHeight = this.rearWheel.center.y - this.headTube.bottom.y
       , straightForkWidth = Math.cos(headTubeAngleRad) * straightForkHeight;
 
     this.straightFork.bottom = {
@@ -188,11 +221,13 @@
       x: this.frontWheel.center.x,
       y: this.frontWheel.center.y + this.frontWheel.radius
     };
-
-    this.updateLegs();
   };
 
   Bike.prototype.updateLegs = function() {
+    // The hip is relative to the back of the seat
+    this.hip.x = this.seat.back.x;
+    this.hip.y = this.seat.back.y;
+
     var angleRad = trig.degToRad(this.pedalAngle);
 
     this.ankle.x = (this.pedal.radius * Math.cos(angleRad))
@@ -218,5 +253,17 @@
       this.knee.x = knees[0];
       this.knee.y = knees[2];
     }
+  };
+
+  Bike.prototype.update = function() {
+    this.updateRearWheel();
+    this.updateBottomBracket();
+    this.updateSeatTube();
+    this.updateSeatPost();
+    this.updateSeat();
+    this.updateHeadTube();
+    this.updateRake();
+    this.updateLegs();
+    this.updateLegs();
   };
 })(window);
