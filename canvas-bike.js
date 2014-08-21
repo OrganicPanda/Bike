@@ -75,13 +75,17 @@
 
     //this.drawLine(this.bike.headTube.bottom, this.bike.headSet.top, 'purple');
     this.drawLine(
-      this.bike.seatTube.top, this.bike.seatPost.top, 'purple');
+      this.bike.seatTube.top, this.bike.seatPost.top, 'orange');
+    /*this.drawLine(
+      this.bike.headSet.top, this.bike.handlebar.left, 'purple');*/
     this.drawLine(
-      this.bike.headSet.top, this.bike.handlebar.left, 'purple');
+      this.bike.headTube.top, this.bike.headSet.top, 'orange');
     this.drawLine(
-      this.bike.handlebar.left, this.bike.handlebar.right, 'purple');
+      this.bike.headSet.top, this.bike.stem.front, 'orange');
+    /*this.drawLine(
+      this.bike.handlebar.left, this.bike.handlebar.right, 'purple');*/
     this.drawLine(
-      this.bike.seat.back, this.bike.seat.front, 'purple');
+      this.bike.seat.back, this.bike.seat.front, 'orange');
 
     this.drawCircle(
       this.bike.bottomBracket, this.bike.pedal.radius / 2, 'pink');
@@ -89,11 +93,11 @@
       this.bike.bottomBracket, this.bike.ankle, 'pink');
 
     this.drawLine(
-      this.bike.hip, this.bike.cyclist.shoulder, 'green');
+      this.bike.hip, this.bike.shoulder, 'green');
     this.drawLine(
-      this.bike.cyclist.shoulder, this.bike.cyclist.elbow, 'green');
+      this.bike.shoulder, this.bike.elbow, 'green');
     this.drawLine(
-      this.bike.cyclist.elbow, this.bike.handlebar.right, 'green');
+      this.bike.elbow, this.bike.handlebar.right, 'green');
     this.drawLine(
       this.bike.hip, this.bike.knee, 'green');
     this.drawLine(

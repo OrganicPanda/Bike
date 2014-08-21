@@ -65,14 +65,21 @@
   };
 
   var Bike = global.Bike = function() {
-    this.cyclist = {
-      shoulder: { x: 250, y: 130 },
-      elbow: { x: 275, y: 170 }
-    };
     this.ankle = { x: 200, y: 400 };
     this.knee = { x: 200, y: 200 };
     this.pedal = { radius: 30, angle: 0 };
     this.hip = { x: 170, y: 200 };
+    this.wrist = { x: 170, y: 200 };
+    this.elbow = { x: 275, y: 170, angle: 90 };
+    this.shoulder = { x: 250, y: 130 };
+    this.backLength = 150;
+    this.upperArmLength = 60;
+    this.lowerArmLength = 60;
+    this.upperLegLength = 110;
+    this.lowerLegLength = 110;
+    this.pedalAngle = 90;
+    this.kneeSide = 'right';
+
     this.bottomBracket = { x: null, y: null, drop: 20 };
     this.seatTube = {
       top: { x: null, y: null },
@@ -95,7 +102,8 @@
       angle: 73,
       length: 10
     };
-    this.headSet = { top: { x: 338, y: 200 } };
+    this.headSet = { top: { x: 338, y: 200 }, length: 20 };
+    this.stem = { front: { x: 338, y: 200 }, length: 20, angle: 5 };
     this.handlebar = {
       left: { x: 358, y: 200 },
       right: { x: 348, y: 210 }
@@ -114,13 +122,6 @@
     this.stack = 150;
     this.reach = 150;
     this.rake = 10;
-
-    this.upperLegLength = 110;
-    this.lowerLegLength = 110;
-
-    this.pedalAngle = 90;
-
-    this.kneeSide = 'right';
   };
 
   // Entry position from which everything else will be computed
@@ -192,6 +193,28 @@
     this.headTube.bottom.y = this.headTube.top.y + headTubeHeight;
   };
 
+  Bike.prototype.updateHeadSet = function() {
+    // The top of the head set is calculated relative to the top of the
+    // head tube using the head tube angle and head set length
+    var headSetAngleRad = trig.degToRad(this.headTube.angle)
+      , headSetHeight = Math.sin(headSetAngleRad) * this.headSet.length
+      , headSetWidth = Math.cos(headSetAngleRad) * this.headSet.length;
+
+    this.headSet.top.x = this.headTube.top.x - headSetWidth;
+    this.headSet.top.y = this.headTube.top.y - headSetHeight;
+  };
+
+  Bike.prototype.updateStem = function() {
+    // The top of the head set is calculated relative to the top of the
+    // head tube using the head tube angle and head set length
+    var stemAngleRad = trig.degToRad(this.stem.angle)
+      , stemHeight = Math.sin(stemAngleRad) * this.stem.length
+      , stemWidth = Math.cos(stemAngleRad) * this.stem.length;
+
+    this.stem.front.x = this.headSet.top.x + stemWidth;
+    this.stem.front.y = this.headSet.top.y - stemHeight;
+  };
+
   Bike.prototype.updateRake = function() {
     // Rake is a bit more complicated. We need 2 steps
 
@@ -255,6 +278,12 @@
     }
   };
 
+  Bike.prototype.updateArms = function() {
+    // The wrist is relative to the back of the seat
+    //this.wrist.x = this.seat.back.x;
+    //this.wrist.y = this.seat.back.y;
+  };
+
   Bike.prototype.update = function() {
     this.updateRearWheel();
     this.updateBottomBracket();
@@ -262,8 +291,10 @@
     this.updateSeatPost();
     this.updateSeat();
     this.updateHeadTube();
+    this.updateHeadSet();
+    this.updateStem();
     this.updateRake();
     this.updateLegs();
-    this.updateLegs();
+    this.updateArms();
   };
 })(window);
