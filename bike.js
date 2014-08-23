@@ -105,8 +105,10 @@
     this.headSet = { top: { x: 338, y: 200 }, length: 20 };
     this.stem = { front: { x: 338, y: 200 }, length: 20, angle: 5 };
     this.handlebar = {
-      left: { x: 358, y: 200 },
-      right: { x: 348, y: 210 }
+      curve: { x: 500, y: 11 },
+      bottom: { x: 600, y: 100 },
+      drop: 30,
+      reach: 30
     };
     this.straightFork = { bottom: { x: null, y: null } };
     this.frontWheel = {
@@ -215,6 +217,14 @@
     this.stem.front.y = this.headSet.top.y - stemHeight;
   };
 
+  Bike.prototype.updateHandlebar = function() {
+    this.handlebar.bottom.x = this.stem.front.x;
+    this.handlebar.bottom.y = this.stem.front.y + this.handlebar.drop;
+
+    this.handlebar.curve.x = this.stem.front.x + this.handlebar.reach;
+    this.handlebar.curve.y = this.stem.front.y + (this.handlebar.drop / 2);
+  };
+
   Bike.prototype.updateRake = function() {
     // Rake is a bit more complicated. We need 2 steps
 
@@ -293,6 +303,7 @@
     this.updateHeadTube();
     this.updateHeadSet();
     this.updateStem();
+    this.updateHandlebar();
     this.updateRake();
     this.updateLegs();
     this.updateArms();

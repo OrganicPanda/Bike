@@ -76,16 +76,28 @@
     //this.drawLine(this.bike.headTube.bottom, this.bike.headSet.top, 'purple');
     this.drawLine(
       this.bike.seatTube.top, this.bike.seatPost.top, 'orange');
+    this.drawLine(
+      this.bike.seat.back, this.bike.seat.front, 'orange');
     /*this.drawLine(
       this.bike.headSet.top, this.bike.handlebar.left, 'purple');*/
     this.drawLine(
       this.bike.headTube.top, this.bike.headSet.top, 'orange');
     this.drawLine(
       this.bike.headSet.top, this.bike.stem.front, 'orange');
-    /*this.drawLine(
-      this.bike.handlebar.left, this.bike.handlebar.right, 'purple');*/
-    this.drawLine(
-      this.bike.seat.back, this.bike.seat.front, 'orange');
+    this.drawQuadraticCurve(
+      this.bike.stem.front,
+      { x: this.bike.stem.front.x + this.bike.handlebar.reach, 
+        y: this.bike.stem.front.y },
+      this.bike.handlebar.curve,
+      'orange'
+    );
+    this.drawQuadraticCurve(
+      this.bike.handlebar.curve,
+      { x: this.bike.stem.front.x + this.bike.handlebar.reach, 
+        y: this.bike.stem.front.y + this.bike.handlebar.drop },
+      this.bike.handlebar.bottom,
+      'orange'
+    );
 
     this.drawCircle(
       this.bike.bottomBracket, this.bike.pedal.radius / 2, 'pink');
@@ -97,7 +109,7 @@
     this.drawLine(
       this.bike.shoulder, this.bike.elbow, 'green');
     this.drawLine(
-      this.bike.elbow, this.bike.handlebar.right, 'green');
+      this.bike.elbow, this.bike.handlebar.curve, 'green');
     this.drawLine(
       this.bike.hip, this.bike.knee, 'green');
     this.drawLine(
@@ -128,6 +140,19 @@
     this.context.moveTo(from.x, from.y);
     this.context.quadraticCurveTo(
       control.x, control.y,
+      to.x, to.y
+    );
+    this.context.stroke();
+    this.context.closePath();
+  };
+
+  CanvasBike.prototype.drawBezierCurve = function(from, control1, control2, to, color) {
+    this.context.beginPath();
+    this.context.strokeStyle = color || 'black';
+    this.context.moveTo(from.x, from.y);
+    this.context.bezierCurveTo(
+      control1.x, control1.y,
+      control2.x, control2.y,
       to.x, to.y
     );
     this.context.stroke();
