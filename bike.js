@@ -103,7 +103,6 @@
     this.lowerArmLength = 110;
     this.upperLegLength = 110;
     this.lowerLegLength = 110;
-    this.pedalAngle = 90;
     this.kneeSide = 'right';
 
     this.bottomBracket = { x: null, y: null, drop: 20 };
@@ -288,11 +287,11 @@
     this.hip.y = this.seat.back.y;
 
     this.ankle.right = trig.posOnCircle(
-      this.bottomBracket, this.pedal.radius, trig.degToRad(this.pedalAngle)
+      this.bottomBracket, this.pedal.radius, trig.degToRad(this.pedal.angle)
     );
 
     this.ankle.left = trig.posOnCircle(
-      this.bottomBracket, this.pedal.radius, trig.degToRad(this.pedalAngle - 180)
+      this.bottomBracket, this.pedal.radius, trig.degToRad(this.pedal.angle - 180)
     );
 
     // This is the clever bit

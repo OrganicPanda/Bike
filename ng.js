@@ -54,4 +54,36 @@ angular.module('myApp', [])
         });
       }
     };
+  })
+
+  .directive('opBikeAnimate', function() {
+    return {
+      restrict: 'A',
+      link: function($scope, el, attrs) {
+        var i = 0
+          , pedalPoints = 1
+          , pedalAngleDelta = Math.PI * 2 / pedalPoints
+          , pedalAngle = 0
+          , intervalID = null;
+
+        el.on('click', function() {
+          if (intervalID) {
+            clearInterval(intervalID);
+            intervalID = null;
+          } else {
+            intervalID = setInterval(function() {
+              if (i == pedalPoints) {
+                i = 0;
+              }
+
+              $scope.bike.pedal.angle = pedalAngle;
+              $scope.bike.update();
+
+              pedalAngle += pedalAngleDelta;
+              i += 1;
+            }, 1000 / 60);
+          }
+        });
+      }
+    };
   });
