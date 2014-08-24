@@ -71,13 +71,13 @@
   };
 
   var Bike = global.Bike = function() {
-    this.ankle = { x: 200, y: 400 };
-    this.knee = { x: 200, y: 200 };
+    this.ankle = { x: null, y: null };
+    this.knee = { x: null, y: null };
     this.pedal = { radius: 30, angle: 0 };
-    this.hip = { x: 170, y: 200 };
-    this.wrist = { x: 170, y: 200 };
-    this.elbow = { x: 275, y: 170, angle: 90 };
-    this.shoulder = { x: 250, y: 130 };
+    this.hip = { x: null, y: null };
+    this.wrist = { x: null, y: null };
+    this.elbow = { x: null, y: null, angle: 90 };
+    this.shoulder = { x: null, y: null };
     this.torsoLength = 150;
     this.upperArmLength = 110;
     this.lowerArmLength = 110;
@@ -94,12 +94,12 @@
     };
     this.chainStay = { length: 110 };
     this.seatPost = {
-      top: { x: 165, y: 200 },
+      top: { x: null, y: null },
       length: 30
     };
     this.seat = {
-      back: { x: 160, y: 200 },
-      front: { x: 180, y: 200 },
+      back: { x: null, y: null },
+      front: { x: null, y: null },
       length: 20
     };
     this.headTube = {
@@ -108,11 +108,11 @@
       angle: 73,
       length: 10
     };
-    this.headSet = { top: { x: 338, y: 200 }, length: 20 };
-    this.stem = { front: { x: 338, y: 200 }, length: 20, angle: 5 };
+    this.headSet = { top: { x: null, y: null }, length: 20 };
+    this.stem = { front: { x: null, y: null }, length: 20, angle: 5 };
     this.handlebar = {
-      curve: { x: 500, y: 11 },
-      bottom: { x: 600, y: 100 },
+      curve: { x: null, y: null },
+      bottom: { x: null, y: null },
       drop: 30,
       reach: 30
     };
