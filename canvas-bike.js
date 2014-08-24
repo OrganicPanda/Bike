@@ -107,7 +107,7 @@
     this.drawCircle(
       this.bike.bottomBracket, this.bike.pedal.radius / 2, 'pink');
     this.drawLine(
-      this.bike.bottomBracket, this.bike.ankle.right, 'pink');
+      this.bike.ankle.right, this.bike.ankle.left, 'pink');
 
     this.drawLine(
       this.bike.hip, this.bike.shoulder, 'green');
