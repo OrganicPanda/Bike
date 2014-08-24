@@ -11,7 +11,7 @@
     },
 
     // From: http://stackoverflow.com/a/12221389
-    intersection: function(x0, y0, r0, x1, y1, r1) {
+    intersection: function(x0, y0, r0, x1, y1, r1, decider) {
       var a, dx, dy, d, h, rx, ry;
       var x2, y2;
 
@@ -54,7 +54,11 @@
       var yi = y2 + ry;
       var yi_prime = y2 - ry;
 
-      return [xi, xi_prime, yi, yi_prime];
+      if (decider(xi, xi_prime, yi, yi_prime)) {
+        return { x: xi, y: yi };
+      } else {
+        return { x: xi_prime, y: yi_prime };
+      }
     },
 
     // From: http://nayuki.eigenstate.org/res/triangle-solver-javascript/
@@ -67,16 +71,32 @@
     // triangle-solver.js
     solveSide: function(a, b, C) {
       return Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(C));
+    },
+
+    posOnCircle: function(center, radius, angle) {
+      return {
+        x: (radius * Math.cos(angle)) + center.x,
+        y: (radius * Math.sin(angle)) + center.y
+      };
     }
   };
 
   var Bike = global.Bike = function() {
-    this.ankle = { x: null, y: null };
-    this.knee = { x: null, y: null };
+    this.ankle = { 
+      right: { x: null, y: null },
+      left: { x: null, y: null }
+    };
+    this.knee = { 
+      right: { x: null, y: null }, 
+      left: { x: null, y: null } 
+    };
     this.pedal = { radius: 30, angle: 0 };
     this.hip = { x: null, y: null };
     this.wrist = { x: null, y: null };
-    this.elbow = { x: null, y: null, angle: 90 };
+    this.elbow = { 
+      right: { x: null, y: null }, 
+      angle: 90 
+    };
     this.shoulder = { x: null, y: null };
     this.torsoLength = 150;
     this.upperArmLength = 110;
@@ -267,31 +287,33 @@
     this.hip.x = this.seat.back.x;
     this.hip.y = this.seat.back.y;
 
-    var angleRad = trig.degToRad(this.pedalAngle);
+    this.ankle.right = trig.posOnCircle(
+      this.bottomBracket, this.pedal.radius, trig.degToRad(this.pedalAngle)
+    );
 
-    this.ankle.x = (this.pedal.radius * Math.cos(angleRad))
-                    + this.bottomBracket.x;
-    this.ankle.y = (this.pedal.radius * Math.sin(angleRad))
-                    + this.bottomBracket.y;
+    this.ankle.left = trig.posOnCircle(
+      this.bottomBracket, this.pedal.radius, trig.degToRad(this.pedalAngle - 180)
+    );
 
     // This is the clever bit
     // We know 2 points (hip and ankle) and the length of the
     // upper and lower leg so we can draw 2 circles and see where they overlap
     // There points will be our possible knee points
-    var knees = trig.intersection(
+    this.knee.right = trig.intersection(
       this.hip.x, this.hip.y,
       this.upperLegLength,
-      this.ankle.x, this.ankle.y,
-      this.lowerLegLength);
+      this.ankle.right.x, this.ankle.right.y,
+      this.lowerLegLength,
+      function(x1, x2, y1, y2) { return x1 > x2; }
+    );
 
-    // There will be 2 overlaps so decide which one is right
-    if (this.kneeSide == 'right') {
-      this.knee.x = knees[1];
-      this.knee.y = knees[3];
-    } else {
-      this.knee.x = knees[0];
-      this.knee.y = knees[2];
-    }
+    this.knee.left = trig.intersection(
+      this.hip.x, this.hip.y,
+      this.upperLegLength,
+      this.ankle.left.x, this.ankle.left.y,
+      this.lowerLegLength,
+      function(x1, x2, y1, y2) { return x1 > x2; }
+    );
   };
 
   Bike.prototype.updateArms = function() {
@@ -311,39 +333,23 @@
         );
 
     // Work out where that would meet the torso
-    var shoulders = trig.intersection(
+    this.shoulder = trig.intersection(
       this.wrist.x, this.wrist.y,
       armLength,
       this.hip.x, this.hip.y,
-      this.torsoLength);
-
-    // There will be 2 options so decide which one is right
-    // We want the lower option of the y axis
-    if (shoulders[2] < shoulders[3]) {
-      this.shoulder.x = shoulders[0];
-      this.shoulder.y = shoulders[2];
-    } else {
-      this.shoulder.x = shoulders[1];
-      this.shoulder.y = shoulders[3];
-    }
+      this.torsoLength,
+      function(x1, x2, y1, y2) { return y1 < y2; }
+    );
 
     // Now that we have the shoulder position we can do the 
     // same for the elbow
-    var elbows = trig.intersection(
+    this.elbow.right = trig.intersection(
       this.shoulder.x, this.shoulder.y,
       this.upperArmLength,
       this.wrist.x, this.wrist.y,
-      this.lowerArmLength);
-
-    // There will be 2 options so decide which one is right
-    // We want the higher option of the y axis
-    if (elbows[2] > elbows[3]) {
-      this.elbow.x = elbows[0];
-      this.elbow.y = elbows[2];
-    } else {
-      this.elbow.x = elbows[1];
-      this.elbow.y = elbows[3];
-    }
+      this.lowerArmLength,
+      function(x1, x2, y1, y2) { return y1 > y2; }
+    );
   };
 
   Bike.prototype.update = function() {

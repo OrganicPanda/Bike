@@ -27,6 +27,11 @@
     // Orange is computed
     // Yellow is debug
 
+    this.drawLine(
+      this.bike.hip, this.bike.knee.left, 'green');
+    this.drawLine(
+      this.bike.knee.left, this.bike.ankle.left, 'green');
+
     this.drawCircle(
       this.bike.rearWheel.center, this.bike.rearWheel.radius, 'orange');
     this.drawCircle(
@@ -102,18 +107,18 @@
     this.drawCircle(
       this.bike.bottomBracket, this.bike.pedal.radius / 2, 'pink');
     this.drawLine(
-      this.bike.bottomBracket, this.bike.ankle, 'pink');
+      this.bike.bottomBracket, this.bike.ankle.right, 'pink');
 
     this.drawLine(
       this.bike.hip, this.bike.shoulder, 'green');
     this.drawLine(
-      this.bike.shoulder, this.bike.elbow, 'green');
+      this.bike.shoulder, this.bike.elbow.right, 'green');
     this.drawLine(
-      this.bike.elbow, this.bike.wrist, 'green');
+      this.bike.elbow.right, this.bike.wrist, 'green');
     this.drawLine(
-      this.bike.hip, this.bike.knee, 'green');
+      this.bike.hip, this.bike.knee.right, 'green');
     this.drawLine(
-      this.bike.knee, this.bike.ankle, 'green');
+      this.bike.knee.right, this.bike.ankle.right, 'green');
 
     requestAnimationFrame(this.renderFunction);
   };

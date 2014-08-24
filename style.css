@@ -71,6 +71,7 @@ body {
   left: 60%;
   bottom: 0;
   right: 0;
+  pointer-events: none;
 }
 
 #debug pre {
