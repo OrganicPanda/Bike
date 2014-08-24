@@ -61,6 +61,12 @@
     // triangle-solver.js
     degToRad: function(x) {
       return x / 180 * Math.PI;
+    },
+
+    // From: http://nayuki.eigenstate.org/res/triangle-solver-javascript/
+    // triangle-solver.js
+    solveSide: function(a, b, C) {
+      return Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(C));
     }
   };
 
@@ -72,9 +78,9 @@
     this.wrist = { x: 170, y: 200 };
     this.elbow = { x: 275, y: 170, angle: 90 };
     this.shoulder = { x: 250, y: 130 };
-    this.backLength = 150;
-    this.upperArmLength = 60;
-    this.lowerArmLength = 60;
+    this.torsoLength = 150;
+    this.upperArmLength = 110;
+    this.lowerArmLength = 110;
     this.upperLegLength = 110;
     this.lowerLegLength = 110;
     this.pedalAngle = 90;
@@ -257,7 +263,7 @@
   };
 
   Bike.prototype.updateLegs = function() {
-    // The hip is relative to the back of the seat
+    // The hip is fixed to the back of the seat for now
     this.hip.x = this.seat.back.x;
     this.hip.y = this.seat.back.y;
 
@@ -289,9 +295,55 @@
   };
 
   Bike.prototype.updateArms = function() {
-    // The wrist is relative to the back of the seat
-    //this.wrist.x = this.seat.back.x;
-    //this.wrist.y = this.seat.back.y;
+    // The wrist is fixed to the handlebar for now
+    this.wrist.x = this.handlebar.curve.x;
+    this.wrist.y = this.handlebar.curve.y;
+
+    // We know:
+    // - torso length
+    // - upper/lower arm lengths
+    // - elbow angle
+
+    // Work out the straight-line distance from wrist to shoulder
+    var elbowAngleRad = trig.degToRad(this.elbow.angle)
+      , armLength = trig.solveSide(
+          this.upperArmLength, this.lowerArmLength, elbowAngleRad
+        );
+
+    // Work out where that would meet the torso
+    var shoulders = trig.intersection(
+      this.wrist.x, this.wrist.y,
+      armLength,
+      this.hip.x, this.hip.y,
+      this.torsoLength);
+
+    // There will be 2 options so decide which one is right
+    // We want the lower option of the y axis
+    if (shoulders[2] < shoulders[3]) {
+      this.shoulder.x = shoulders[0];
+      this.shoulder.y = shoulders[2];
+    } else {
+      this.shoulder.x = shoulders[1];
+      this.shoulder.y = shoulders[3];
+    }
+
+    // Now that we have the shoulder position we can do the 
+    // same for the elbow
+    var elbows = trig.intersection(
+      this.shoulder.x, this.shoulder.y,
+      this.upperArmLength,
+      this.wrist.x, this.wrist.y,
+      this.lowerArmLength);
+
+    // There will be 2 options so decide which one is right
+    // We want the higher option of the y axis
+    if (elbows[2] > elbows[3]) {
+      this.elbow.x = elbows[0];
+      this.elbow.y = elbows[2];
+    } else {
+      this.elbow.x = elbows[1];
+      this.elbow.y = elbows[3];
+    }
   };
 
   Bike.prototype.update = function() {

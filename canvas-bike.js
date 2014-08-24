@@ -109,7 +109,7 @@
     this.drawLine(
       this.bike.shoulder, this.bike.elbow, 'green');
     this.drawLine(
-      this.bike.elbow, this.bike.handlebar.curve, 'green');
+      this.bike.elbow, this.bike.wrist, 'green');
     this.drawLine(
       this.bike.hip, this.bike.knee, 'green');
     this.drawLine(
