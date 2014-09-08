@@ -28,9 +28,6 @@
   CanvasBike.prototype.render = function() {
     this.context.clearRect(0, 0, this.width, this.height);
 
-    // Orange is computed
-    // Yellow is debug
-
     this.drawLine(
       this.bike.hip, this.bike.knee.left, 'green');
     this.drawLine(
@@ -40,29 +37,8 @@
       this.bike.rearWheel.center, this.bike.rearWheel.radius, 'orange');
     this.drawCircle(
       this.bike.frontWheel.center, this.bike.frontWheel.radius, 'orange');
-    // this.drawCircle(
-    //   this.bike.frontWheel.center, this.bike.rake, 'yellow');
-
-    // Floor
-    // this.drawLine(
-    //   { x: 0, y: this.bike.rearWheel.floor.y },
-    //   { x: this.width, y: this.bike.rearWheel.floor.y },
-    //   'yellow'
-    // );
-
-    // // Wheel center horizontal
-    // this.drawLine(
-    //   { x: 0, y: this.bike.rearWheel.center.y },
-    //   { x: this.width, y: this.bike.rearWheel.center.y },
-    //   'yellow'
-    // );
 
     this.drawFrame('orange');
-
-    //this.drawLine(
-    //  this.bike.headTube.bottom, this.bike.frontWheel.center, 'yellow');
-    //this.drawLine(
-    //  this.bike.headTube.bottom, this.bike.straightFork.bottom, 'yellow');
 
     this.drawQuadraticCurve(
       this.bike.headTube.bottom,
@@ -71,13 +47,10 @@
       'orange'
     );
 
-    //this.drawLine(this.bike.headTube.bottom, this.bike.headSet.top, 'purple');
     this.drawLine(
       this.bike.seatTube.top, this.bike.seatPost.top, 'orange');
     this.drawLine(
       this.bike.seat.back, this.bike.seat.front, 'orange');
-    /*this.drawLine(
-      this.bike.headSet.top, this.bike.handlebar.left, 'purple');*/
     this.drawLine(
       this.bike.headTube.top, this.bike.headSet.top, 'orange');
     this.drawLine(
