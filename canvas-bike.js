@@ -4,6 +4,10 @@
     this.canvas = canvas;
     this.context = this.canvas.getContext("2d");
 
+    this.context.lineWidth = 10;
+    this.context.lineCap = 'round'; // butt (default), round, square
+    this.context.lineJoin = 'round'; // round, bevel, miter (default)
+
     this.resize();
 
     this.renderFunction = this.render.bind(this);
@@ -36,40 +40,29 @@
       this.bike.rearWheel.center, this.bike.rearWheel.radius, 'orange');
     this.drawCircle(
       this.bike.frontWheel.center, this.bike.frontWheel.radius, 'orange');
-    this.drawCircle(
-      this.bike.frontWheel.center, this.bike.rake, 'yellow');
+    // this.drawCircle(
+    //   this.bike.frontWheel.center, this.bike.rake, 'yellow');
 
     // Floor
-    this.drawLine(
-      { x: 0, y: this.bike.rearWheel.floor.y },
-      { x: this.width, y: this.bike.rearWheel.floor.y },
-      'yellow'
-    );
+    // this.drawLine(
+    //   { x: 0, y: this.bike.rearWheel.floor.y },
+    //   { x: this.width, y: this.bike.rearWheel.floor.y },
+    //   'yellow'
+    // );
 
-    // Wheel center horizontal
-    this.drawLine(
-      { x: 0, y: this.bike.rearWheel.center.y },
-      { x: this.width, y: this.bike.rearWheel.center.y },
-      'yellow'
-    );
+    // // Wheel center horizontal
+    // this.drawLine(
+    //   { x: 0, y: this.bike.rearWheel.center.y },
+    //   { x: this.width, y: this.bike.rearWheel.center.y },
+    //   'yellow'
+    // );
 
-    this.drawLine(
-      this.bike.rearWheel.center, this.bike.bottomBracket, 'orange');
-    this.drawLine(
-      this.bike.bottomBracket, this.bike.seatTube.top, 'orange');
-    this.drawLine(
-      this.bike.rearWheel.center, this.bike.seatTube.top, 'orange');
-    this.drawLine(
-      this.bike.seatTube.top, this.bike.headTube.top, 'orange');
-    this.drawLine(
-      this.bike.headTube.bottom, this.bike.headTube.top, 'orange');
-    this.drawLine(
-      this.bike.bottomBracket, this.bike.headTube.bottom, 'orange');
+    this.drawFrame('orange');
 
-    this.drawLine(
-      this.bike.headTube.bottom, this.bike.frontWheel.center, 'yellow');
-    this.drawLine(
-      this.bike.headTube.bottom, this.bike.straightFork.bottom, 'yellow');
+    //this.drawLine(
+    //  this.bike.headTube.bottom, this.bike.frontWheel.center, 'yellow');
+    //this.drawLine(
+    //  this.bike.headTube.bottom, this.bike.straightFork.bottom, 'yellow');
 
     this.drawQuadraticCurve(
       this.bike.headTube.bottom,
@@ -91,14 +84,14 @@
       this.bike.headSet.top, this.bike.stem.front, 'orange');
     this.drawQuadraticCurve(
       this.bike.stem.front,
-      { x: this.bike.stem.front.x + this.bike.handlebar.reach, 
+      { x: this.bike.stem.front.x + this.bike.handlebar.reach,
         y: this.bike.stem.front.y },
       this.bike.handlebar.curve,
       'orange'
     );
     this.drawQuadraticCurve(
       this.bike.handlebar.curve,
-      { x: this.bike.stem.front.x + this.bike.handlebar.reach, 
+      { x: this.bike.stem.front.x + this.bike.handlebar.reach,
         y: this.bike.stem.front.y + this.bike.handlebar.drop },
       this.bike.handlebar.bottom,
       'orange'
@@ -109,18 +102,48 @@
     this.drawLine(
       this.bike.ankle.right, this.bike.ankle.left, 'pink');
 
-    this.drawLine(
-      this.bike.hip, this.bike.shoulder, 'green');
-    this.drawLine(
-      this.bike.shoulder, this.bike.elbow.right, 'green');
-    this.drawLine(
-      this.bike.elbow.right, this.bike.wrist, 'green');
-    this.drawLine(
-      this.bike.hip, this.bike.knee.right, 'green');
-    this.drawLine(
-      this.bike.knee.right, this.bike.ankle.right, 'green');
+    this.drawCyclist('green');
 
     requestAnimationFrame(this.renderFunction);
+  };
+
+  CanvasBike.prototype.moveTo = function(point) {
+    this.context.moveTo(point.x, point.y);
+  };
+
+  CanvasBike.prototype.lineTo = function(point) {
+    this.context.lineTo(point.x, point.y);
+  };
+
+  CanvasBike.prototype.drawFrame = function(color) {
+    this.context.beginPath();
+    this.context.strokeStyle = color || 'black';
+
+    this.moveTo(this.bike.seatTube.top);
+    this.lineTo(this.bike.bottomBracket);
+    this.lineTo(this.bike.rearWheel.center);
+    this.lineTo(this.bike.seatTube.top);
+    this.lineTo(this.bike.headTube.top);
+    this.lineTo(this.bike.headTube.bottom);
+    this.lineTo(this.bike.bottomBracket);
+
+    this.context.stroke();
+    this.context.closePath();
+  };
+
+  CanvasBike.prototype.drawCyclist = function(color) {
+    this.context.beginPath();
+    this.context.strokeStyle = color || 'black';
+
+    this.lineTo(this.bike.ankle.right);
+    this.lineTo(this.bike.knee.right);
+    this.lineTo(this.bike.hip);
+    this.lineTo(this.bike.shoulder);
+    this.lineTo(this.bike.elbow.right);
+    this.lineTo(this.bike.wrist);
+
+    this.context.stroke();
+    this.context.closePath();
   };
 
   CanvasBike.prototype.drawLine = function(from, to, color) {
@@ -137,6 +160,7 @@
     this.context.arc(center.x, center.y, radius, 0, 2 * Math.PI, false);
     this.context.strokeStyle = color || 'black';
     this.context.stroke();
+    this.context.closePath();
   };
 
   CanvasBike.prototype.drawQuadraticCurve = function(from, control, to, color) {
