@@ -82,20 +82,20 @@
   };
 
   var Bike = global.Bike = function() {
-    this.ankle = { 
+    this.ankle = {
       right: { x: null, y: null },
       left: { x: null, y: null }
     };
-    this.knee = { 
-      right: { x: null, y: null }, 
-      left: { x: null, y: null } 
+    this.knee = {
+      right: { x: null, y: null },
+      left: { x: null, y: null }
     };
     this.pedal = { radius: 30, angle: 0 };
     this.hip = { x: null, y: null };
     this.wrist = { x: null, y: null };
-    this.elbow = { 
-      right: { x: null, y: null }, 
-      angle: 90 
+    this.elbow = {
+      right: { x: null, y: null },
+      angle: 90
     };
     this.shoulder = { x: null, y: null };
     this.torsoLength = 150;
@@ -111,7 +111,7 @@
       angle: 73,
       length: 150
     };
-    this.chainStay = { length: 110 };
+    this.chainStay = { length: 120 };
     this.seatPost = {
       top: { x: null, y: null },
       length: 30
@@ -340,7 +340,7 @@
       function(x1, x2, y1, y2) { return y1 < y2; }
     );
 
-    // Now that we have the shoulder position we can do the 
+    // Now that we have the shoulder position we can do the
     // same for the elbow
     this.elbow.right = trig.intersection(
       this.shoulder.x, this.shoulder.y,
