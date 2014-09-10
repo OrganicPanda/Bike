@@ -2,7 +2,7 @@
   var CanvasBike = global.CanvasBike = function(bike, canvas) {
     this.bike = bike;
     this.canvas = canvas;
-    this.context = this.canvas.getContext("2d");
+    this.context = this.canvas.getContext('2d');
 
     this.context.lineCap = 'round'; // butt (default), round, square
     this.context.lineJoin = 'round'; // round, bevel, miter (default)
@@ -46,6 +46,11 @@
     requestAnimationFrame(this.renderFunction);
   };
 
+  CanvasBike.prototype.scale = function(val) {
+    // TODO: work out how to properly scale values in to canvas pixels
+    return val * 0.5;
+  };
+
   CanvasBike.prototype.beginPath = function(color, width) {
     this.context.strokeStyle = color || 'red';
     this.context.lineWidth = width || 8;
@@ -58,21 +63,24 @@
   };
 
   CanvasBike.prototype.moveTo = function(point) {
-    this.context.moveTo(point.x, point.y);
+    this.context.moveTo(this.scale(point.x), this.scale(point.y));
   };
 
   CanvasBike.prototype.lineTo = function(point) {
-    this.context.lineTo(point.x, point.y);
+    this.context.lineTo(this.scale(point.x), this.scale(point.y));
   };
 
   CanvasBike.prototype.circle = function(center, radius) {
-    this.context.arc(center.x, center.y, radius, 0, 2 * Math.PI, false);
+    this.context.arc(
+      this.scale(center.x), this.scale(center.y),
+      this.scale(radius), 0, 2 * Math.PI, false
+    );
   };
 
   CanvasBike.prototype.quadraticCurveTo = function(control, to) {
     this.context.quadraticCurveTo(
-      control.x, control.y,
-      to.x, to.y
+      this.scale(control.x), this.scale(control.y),
+      this.scale(to.x), this.scale(to.y)
     );
   };
 
@@ -99,7 +107,7 @@
   CanvasBike.prototype.drawWheel = function(wheel) {
     this.beginPath('black', 12);
 
-    this.circle(this.bike[wheel].center, this.bike[wheel].radius);
+    this.circle(this.bike[wheel].center, (this.bike[wheel].diameter / 2));
 
     this.closePath();
   };

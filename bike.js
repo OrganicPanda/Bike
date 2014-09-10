@@ -82,6 +82,20 @@
   };
 
   var Bike = global.Bike = function() {
+    // Everything is millimeters or degrees
+    //
+    // Cyclist size is average
+    // http://brownstudio12.files.wordpress.com/2012/03/human_standard_l.jpg
+    // Bike size is medium
+    // http://www.boardmanbikes.com/road/air98_Di2.html
+    // Drop bars are traditional
+    // http://www.slowtwitch.com/images/glinks/articles/WhatWeNoticed/zippdropdiagram.jpg
+    // Wheels are 700c (622mm diameter)
+    //
+    // Unknowns:
+    // Saddle height (adjustable but not sure what a 'normal' range is)
+    // Headset length
+    // Stem angle
     this.ankle = {
       right: { x: null, y: null },
       left: { x: null, y: null }
@@ -90,65 +104,65 @@
       right: { x: null, y: null },
       left: { x: null, y: null }
     };
-    this.pedal = { radius: 30, angle: 0 };
+    this.pedal = { radius: 172.5, angle: 0 }; // crank length 172.5
     this.hip = { x: null, y: null };
     this.wrist = { x: null, y: null };
     this.elbow = {
       right: { x: null, y: null },
-      angle: 90
+      angle: 150
     };
     this.shoulder = { x: null, y: null };
-    this.torsoLength = 150;
-    this.upperArmLength = 110;
-    this.lowerArmLength = 110;
-    this.upperLegLength = 110;
-    this.lowerLegLength = 110;
+    this.torsoLength = 455;
+    this.upperArmLength = 280;
+    this.lowerArmLength = 255;
+    this.upperLegLength = 425;
+    this.lowerLegLength = 410;
     this.kneeSide = 'right';
 
-    this.bottomBracket = { x: null, y: null, drop: 20 };
+    this.bottomBracket = { x: null, y: null, drop: 68 };
     this.seatTube = {
       top: { x: null, y: null },
       angle: 73,
-      length: 150
+      length: 520
     };
-    this.chainStay = { length: 120 };
+    this.chainStay = { length: 405 };
     this.seatPost = {
       top: { x: null, y: null },
-      length: 30
+      length: 125
     };
     this.seat = {
       back: { x: null, y: null },
       front: { x: null, y: null },
-      length: 20
+      length: 75
     };
     this.headTube = {
       bottom: { x: null, y: null },
       top: { x: null, y: null },
       angle: 73,
-      length: 10
+      length: 150
     };
-    this.headSet = { top: { x: null, y: null }, length: 20 };
-    this.stem = { front: { x: null, y: null }, length: 20, angle: 5 };
+    this.headSet = { top: { x: null, y: null }, length: 50 };
+    this.stem = { front: { x: null, y: null }, length: 110, angle: 5 };
     this.handlebar = {
       curve: { x: null, y: null },
       bottom: { x: null, y: null },
-      drop: 30,
-      reach: 30
+      drop: 130,
+      reach: 87.5
     };
     this.straightFork = { bottom: { x: null, y: null } };
     this.frontWheel = {
       floor: { x: null, y: null },
       center: { x: null, y: null },
-      radius: 96
+      diameter: 622
     };
     this.rearWheel = {
       floor: { x: null, y: null },
       center: { x: null, y: null },
-      radius: 96
+      diameter: 622
     };
-    this.stack = 150;
-    this.reach = 150;
-    this.rake = 10;
+    this.stack = 553;
+    this.reach = 392;
+    this.rake = 43;
   };
 
   // Entry position from which everything else will be computed
@@ -159,7 +173,7 @@
   Bike.prototype.updateRearWheel = function() {
     this.rearWheel.center = {
       x: this.rearWheel.floor.x,
-      y: (this.rearWheel.floor.y - this.rearWheel.radius)
+      y: (this.rearWheel.floor.y - (this.rearWheel.diameter / 2))
     };
   };
 
@@ -263,7 +277,7 @@
 
     this.straightFork.bottom = {
       x: this.headTube.bottom.x + straightForkWidth,
-      y: this.rearWheel.floor.y - this.frontWheel.radius
+      y: this.rearWheel.floor.y - (this.frontWheel.diameter / 2)
     };
 
     // Now using that point we can get the real center by constructing
@@ -277,7 +291,7 @@
 
     this.frontWheel.floor = {
       x: this.frontWheel.center.x,
-      y: this.frontWheel.center.y + this.frontWheel.radius
+      y: this.frontWheel.center.y + (this.frontWheel.diameter / 2)
     };
   };
 
