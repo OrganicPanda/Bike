@@ -16,74 +16,144 @@
 
     <div op-bike-controls>
       <div class="control">
-        <label for="front-wheel-radius">Front Wheel Radius</label>
-        <input id="front-wheel-radius" ng-model="bike.frontWheel.radius"
-               type="number" min="1" max="1000">
-      </div>
-      <div class="control">
-        <label for="rear-wheel-radius">Rear Wheel Radius</label>
-        <input id="rear-wheel-radius" ng-model="bike.rearWheel.radius"
-               type="number" min="1" max="1000">
-      </div>
-      <div class="control">
-        <label for="bottom-bracket-drop">Bottom Bracket Drop</label>
-        <input id="bottom-bracket-drop" ng-model="bike.bottomBracket.drop"
+        <label for="elbow.angle">elbow.angle</label>
+        <input id="elbow.angle" ng-model="bike.elbow.angle"
                type="number" min="0" max="1000">
       </div>
       <div class="control">
-        <label for="seat-tube-length">Seat Tube Length</label>
-        <input id="seat-tube-length" ng-model="bike.seatTube.length"
-               type="number" min="1" max="1000">
+        <label for="torsoLength">torsoLength</label>
+        <input id="torsoLength" ng-model="bike.torsoLength"
+               type="number" min="0" max="1000">
       </div>
       <div class="control">
-        <label for="seat-tube-angle">Seat Tube Angle</label>
-        <input id="seat-tube-angle" ng-model="bike.seatTube.angle"
-               type="number" min="0" max="360">
+        <label for="upperArmLength">upperArmLength</label>
+        <input id="upperArmLength" ng-model="bike.upperArmLength"
+               type="number" min="0" max="1000">
       </div>
       <div class="control">
-        <label for="chain-stay-length">Chain Stay Length</label>
-        <input id="chain-stay-length" ng-model="bike.chainStay.length"
-               type="number" min="1" max="1000">
+        <label for="lowerArmLength">lowerArmLength</label>
+        <input id="lowerArmLength" ng-model="bike.lowerArmLength"
+               type="number" min="0" max="1000">
       </div>
       <div class="control">
-        <label for="head-tube-length">Head Tube Length</label>
-        <input id="head-tube-length" ng-model="bike.headTube.length"
-               type="number" min="1" max="1000">
+        <label for="upperLegLength">upperLegLength</label>
+        <input id="upperLegLength" ng-model="bike.upperLegLength"
+               type="number" min="0" max="1000">
       </div>
       <div class="control">
-        <label for="head-tube-angle">Head Tube Angle</label>
-        <input id="head-tube-angle" ng-model="bike.headTube.angle"
-               type="number" min="0" max="360">
+        <label for="lowerLegLength">lowerLegLength</label>
+        <input id="lowerLegLength" ng-model="bike.lowerLegLength"
+               type="number" min="0" max="1000">
       </div>
       <div class="control">
-        <label for="stack">Stack</label>
+        <label for="pedal.radius">pedal.radius</label>
+        <input id="pedal.radius" ng-model="bike.pedal.radius"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="pedal.angle">pedal.angle</label>
+        <input id="pedal.angle" ng-model="bike.pedal.angle"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="bottomBracket.drop">bottomBracket.drop</label>
+        <input id="bottomBracket.drop" ng-model="bike.bottomBracket.drop"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="seatTube.angle">seatTube.angle</label>
+        <input id="seatTube.angle" ng-model="bike.seatTube.angle"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="seatTube.length">seatTube.length</label>
+        <input id="seatTube.length" ng-model="bike.seatTube.length"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="chainStay.length">chainStay.length</label>
+        <input id="chainStay.length" ng-model="bike.chainStay.length"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="seatPost.length">seatPost.length</label>
+        <input id="seatPost.length" ng-model="bike.seatPost.length"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="seat.length">seat.length</label>
+        <input id="seat.length" ng-model="bike.seat.length"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="headTube.angle">headTube.angle</label>
+        <input id="headTube.angle" ng-model="bike.headTube.angle"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="headTube.length">headTube.length</label>
+        <input id="headTube.length" ng-model="bike.headTube.length"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="headSet.length">headSet.length</label>
+        <input id="headSet.length" ng-model="bike.headSet.length"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="stem.length">stem.length</label>
+        <input id="stem.length" ng-model="bike.stem.length"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="stem.angle">stem.angle</label>
+        <input id="stem.angle" ng-model="bike.stem.angle"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="handlebar.drop">handlebar.drop</label>
+        <input id="handlebar.drop" ng-model="bike.handlebar.drop"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="handlebar.reach">handlebar.reach</label>
+        <input id="handlebar.reach" ng-model="bike.handlebar.reach"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="frontWheel.diameter">frontWheel.diameter</label>
+        <input id="frontWheel.diameter" ng-model="bike.frontWheel.diameter"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="rearWheel.center.x">rearWheel.center.x</label>
+        <input id="rearWheel.center.x" ng-model="bike.rearWheel.center.x"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="rearWheel.center.y">rearWheel.center.y</label>
+        <input id="rearWheel.center.y" ng-model="bike.rearWheel.center.y"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="rearWheel.diameter">rearWheel.diameter</label>
+        <input id="rearWheel.diameter" ng-model="bike.rearWheel.diameter"
+               type="number" min="0" max="1000">
+      </div>
+      <div class="control">
+        <label for="stack">stack</label>
         <input id="stack" ng-model="bike.stack"
-               type="number" min="1" max="1000">
+               type="number" min="0" max="1000">
       </div>
       <div class="control">
-        <label for="reach">Reach</label>
+        <label for="reach">reach</label>
         <input id="reach" ng-model="bike.reach"
-               type="number" min="1" max="1000">
+               type="number" min="0" max="1000">
       </div>
       <div class="control">
-        <label for="rake">Rake</label>
+        <label for="rake">rake</label>
         <input id="rake" ng-model="bike.rake"
                type="number" min="0" max="1000">
-      </div>
-      <div class="control">
-        <label for="upper-leg-length">Upper Leg Length</label>
-        <input id="upper-leg-length" ng-model="bike.upperLegLength"
-               type="number" min="1" max="1000">
-      </div>
-      <div class="control">
-        <label for="lower-leg-length">Lower Leg Length</label>
-        <input id="lower-leg-length" ng-model="bike.lowerLegLength"
-               type="number" min="1" max="1000">
-      </div>
-      <div class="control">
-        <label for="pedal-angle">Pedal Angle</label>
-        <input id="pedal-angle" ng-model="bike.pedalAngle"
-               type="number" min="0" max="360" step="10">
       </div>
       <div class="control">
         <label for="bike-animate">Animate?</label>

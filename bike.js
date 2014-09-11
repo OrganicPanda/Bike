@@ -86,6 +86,8 @@
     //
     // Cyclist size is average
     // http://brownstudio12.files.wordpress.com/2012/03/human_standard_l.jpg
+    // Head position is ... complicated
+    //
     // Bike size is medium
     // http://www.boardmanbikes.com/road/air98_Di2.html
     // Drop bars are traditional
@@ -111,6 +113,7 @@
       right: { x: null, y: null },
       angle: 150
     };
+    this.head = { center: { x: null, y: null }, offset: 190 }; // TODO: ??
     this.shoulder = { x: null, y: null };
     this.torsoLength = 455;
     this.upperArmLength = 280;
@@ -363,6 +366,20 @@
       this.lowerArmLength,
       function(x1, x2, y1, y2) { return y1 > y2; }
     );
+
+    // Now do the head
+    // Work out the angle of the back in radians
+    var backAngleRad = Math.atan2(
+      this.shoulder.y - this.hip.y,
+      this.shoulder.x - this.hip.x
+    );
+
+    // Use that angle to build a triangle from the shoulder
+    var headHeight = Math.sin(backAngleRad) * this.head.offset
+      , headWidth = Math.cos(backAngleRad) * this.head.offset;
+
+    this.head.center.x = this.shoulder.x + headWidth;
+    this.head.center.y = this.shoulder.y + headHeight;
   };
 
   Bike.prototype.update = function() {

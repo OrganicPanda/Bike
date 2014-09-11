@@ -27,7 +27,7 @@
   CanvasBike.prototype.render = function() {
     this.context.clearRect(0, 0, this.width, this.height);
 
-    this.drawLeg('left');
+    this.drawLeg('left', 'darkgreen');
     this.drawCrankarm('left');
 
     this.drawWheel('rearWheel');
@@ -40,7 +40,8 @@
     this.drawChainring();
     this.drawCrankarm('right');
 
-    this.drawBody('green');
+    this.drawBody();
+    this.drawHead();
     this.drawLeg('right');
 
     requestAnimationFrame(this.renderFunction);
@@ -53,7 +54,7 @@
 
   CanvasBike.prototype.beginPath = function(color, width) {
     this.context.strokeStyle = color || 'red';
-    this.context.lineWidth = width || 8;
+    this.context.lineWidth = width || 13;
     this.context.beginPath();
   };
 
@@ -105,7 +106,7 @@
   };
 
   CanvasBike.prototype.drawWheel = function(wheel) {
-    this.beginPath('black', 12);
+    this.beginPath('black', 20);
 
     this.circle(this.bike[wheel].center, (this.bike[wheel].diameter / 2));
 
@@ -125,7 +126,7 @@
     this.beginPath('black');
 
     // TODO: What size should this really be?
-    this.circle(this.bike.bottomBracket, this.bike.pedal.radius / 2);
+    this.circle(this.bike.bottomBracket, this.bike.pedal.radius * 0.33);
 
     this.closePath();
   };
@@ -162,7 +163,7 @@
   };
 
   CanvasBike.prototype.drawBody = function() {
-    this.beginPath('green');
+    this.beginPath('green', 50);
 
     this.moveTo(this.bike.hip);
     this.lineTo(this.bike.shoulder);
@@ -172,8 +173,18 @@
     this.closePath();
   };
 
-  CanvasBike.prototype.drawLeg = function(leg) {
-    this.beginPath('green');
+  CanvasBike.prototype.drawHead = function() {
+    this.context.fillStyle = 'green';
+    this.context.beginPath();
+
+    this.circle(this.bike.head.center, 100);
+
+    this.context.closePath();
+    this.context.fill();
+  };
+
+  CanvasBike.prototype.drawLeg = function(leg, color) {
+    this.beginPath(color || 'green', 50);
 
     this.moveTo(this.bike.ankle[leg]);
     this.lineTo(this.bike.knee[leg]);

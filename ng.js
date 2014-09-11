@@ -8,7 +8,7 @@ angular.module('myApp', [])
         var bike = new Bike();
 
         // TODO: un-hardcode this
-        bike.setRearWheelFloorPosition({ x: 400, y: 1200 });
+        bike.setRearWheelFloorPosition({ x: 400, y: 1500 });
         bike.update();
 
         $scope.bike = bike;
@@ -41,10 +41,14 @@ angular.module('myApp', [])
       link: function($scope, el, attrs) {
         // TODO: I don't love this
         var props = [
-          'frontWheel.radius', 'rearWheel.radius', 'bottomBracket.drop',
-          'seatTube.length', 'seatTube.angle', 'chainStay.length',
-          'headTube.length', 'headTube.angle', 'stack',
-          'reach', 'rake', 'upperLegLength', 'lowerLegLength', 'pedalAngle'
+          'elbow.angle', 'torsoLength', 'upperArmLength', 'lowerArmLength',
+          'upperLegLength', 'lowerLegLength', 'pedal.radius', 'pedal.angle',
+          'bottomBracket.drop', 'seatTube.angle', 'seatTube.length',
+          'chainStay.length', 'seatPost.length', 'seat.length',
+          'headTube.angle', 'headTube.length', 'headSet.length', 'stem.length',
+          'stem.angle', 'handlebar.drop', 'handlebar.reach',
+          'frontWheel.diameter', 'rearWheel.center.x', 'rearWheel.center.y',
+          'rearWheel.diameter', 'stack', 'reach', 'rake'
         ].map(function(prop) {
           return 'bike.' + prop;
         }).join(',');
