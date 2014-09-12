@@ -113,7 +113,7 @@
       right: { x: null, y: null },
       angle: 150
     };
-    this.head = { center: { x: null, y: null }, offset: 190 }; // TODO: ??
+    this.head = { center: { x: null, y: null }, offset: 190 }; // TODO: proportion
     this.shoulder = { x: null, y: null };
     this.torsoLength = 455;
     this.upperArmLength = 280;
