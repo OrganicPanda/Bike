@@ -1,4 +1,8 @@
-* {
+/*$primary-color: #2a2a2a;
+$secondary-color: #888888;
+$background-color: #ededed;*/
+
+*, *::after, *::before {
   box-sizing: border-box;
 }
 
@@ -10,26 +14,69 @@ html, body {
 }
 
 body {
-  background-color: #BADA55;
+  position: relative;
+  background-color: #ededed;
+  font: normal 100%/1.4 "Lucida Grande", "Lucida Sans Unicode",
+        "Lucida Sans", Geneva, Verdana, sans-serif;
+  color: #2a2a2a;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3rem;
+}
+
+header h1 {
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  position: absolute;
+  overflow: auto;
+  top: 3rem;
+  left: 30%;
+  bottom: 0;
+  right: 0;
+}
+
+/* Simple default nav style */
+.site-nav {
+  position: absolute;
+  overflow: auto;
+  top: 3rem;
+  left: 0;
+  bottom: 0;
+  right: 70%;
+  background-color: #2a2a2a;
+  color: #ededed; /*lighten(#2a2a2a, 90);*/
+}
+
+.site-nav a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background-color: #2a2a2a;
+  padding: 0.5em 0;
+}
+.site-nav a:focus,
+.site-nav a:hover {
+  background-color: #2a2a2a; /*lighten(#2a2a2a, 10);*/
+}
+.site-nav a:active {
+  background-color: #2a2a2a; /*lighten(#2a2a2a, 20);*/
 }
 
 [op-canvas-bike] {
   position: absolute;
-  z-index: -1;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: white;
-}
-
-[op-bike-controls] {
-  position: absolute;
-  top: 0;
-  left: 60%;
-  bottom: 0;
-  right: 0;
-  overflow: auto;
 }
 
 .control {
@@ -54,14 +101,13 @@ body {
 }
 
 .control label {
-  width: 30%;
+  width: 50%;
   text-align: right;
-  font-size: 80%;
   padding-right: 1em;
 }
 
 .control input {
-  width: 60%;
+  width: 50%;
 }
 
 #debug {
