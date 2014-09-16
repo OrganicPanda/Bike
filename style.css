@@ -21,18 +21,34 @@ body {
   color: #2a2a2a;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  margin: 0;
+  padding: 1rem;
+  line-height: 1rem;
+}
+
+h1 {
+  background-color: #2a2a2a;
+  color: #ededed;
+}
+
+h2 {
+  background-color: blue;
+  color: #ededed;
+}
+
+h3 {
+  background-color: green;
+  color: #ededed;
+}
+
 header {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 3rem;
-}
-
-header h1 {
-  font-size: inherit;
-  margin: 0;
-  padding: 0;
 }
 
 main {
@@ -44,7 +60,6 @@ main {
   right: 0;
 }
 
-/* Simple default nav style */
 .site-nav {
   position: absolute;
   overflow: auto;
@@ -52,23 +67,6 @@ main {
   left: 0;
   bottom: 0;
   right: 70%;
-  background-color: #2a2a2a;
-  color: #ededed; /*lighten(#2a2a2a, 90);*/
-}
-
-.site-nav a {
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  background-color: #2a2a2a;
-  padding: 0.5em 0;
-}
-.site-nav a:focus,
-.site-nav a:hover {
-  background-color: #2a2a2a; /*lighten(#2a2a2a, 10);*/
-}
-.site-nav a:active {
-  background-color: #2a2a2a; /*lighten(#2a2a2a, 20);*/
 }
 
 [op-canvas-bike] {
@@ -108,18 +106,4 @@ main {
 
 .control input {
   width: 50%;
-}
-
-#debug {
-  border: 1px solid red;
-  position: absolute;
-  top: 75%;
-  left: 60%;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
-}
-
-#debug pre {
-  white-space: pre-wrap;
 }

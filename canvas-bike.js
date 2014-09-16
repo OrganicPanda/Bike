@@ -49,12 +49,12 @@
 
   CanvasBike.prototype.scale = function(val) {
     // TODO: work out how to properly scale values in to canvas pixels
-    return val * 0.5;
+    return val * 0.4;
   };
 
   CanvasBike.prototype.beginPath = function(color, width) {
     this.context.strokeStyle = color || 'red';
-    this.context.lineWidth = width || 13;
+    this.context.lineWidth = this.scale(width || 26);
     this.context.beginPath();
   };
 
@@ -106,7 +106,7 @@
   };
 
   CanvasBike.prototype.drawWheel = function(wheel) {
-    this.beginPath('black', 20);
+    this.beginPath('black', 40);
 
     this.circle(this.bike[wheel].center, (this.bike[wheel].diameter / 2));
 
@@ -163,7 +163,7 @@
   };
 
   CanvasBike.prototype.drawBody = function() {
-    this.beginPath('green', 50);
+    this.beginPath('green', 100);
 
     this.moveTo(this.bike.hip);
     this.lineTo(this.bike.shoulder);
@@ -184,7 +184,7 @@
   };
 
   CanvasBike.prototype.drawLeg = function(leg, color) {
-    this.beginPath(color || 'green', 50);
+    this.beginPath(color || 'green', 100);
 
     this.moveTo(this.bike.ankle[leg]);
     this.lineTo(this.bike.knee[leg]);

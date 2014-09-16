@@ -38,17 +38,54 @@ angular.module('myApp', [])
   .directive('opBikeControls', function() {
     return {
       restrict: 'A',
-      link: function($scope, el, attrs) {
+      link: function($scope) {
+        // TODO: I don't love this
+        var props = [
+          'bottomBracket.drop', 'seatTube.angle', 'seatTube.length',
+          'chainStay.length',
+          'headTube.angle', 'headTube.length', 'headSet.length',
+          'handlebar.drop', 'handlebar.reach',
+          'frontWheel.diameter', 'rearWheel.center.x', 'rearWheel.center.y',
+          'rearWheel.diameter', 'stack', 'reach', 'rake'
+        ].map(function(prop) {
+          return 'bike.' + prop;
+        }).join(',');
+
+        $scope.$watchCollection('[' + props + ']', function() {
+          $scope.bike.update();
+        });
+      }
+    };
+  })
+
+  .directive('opCyclistControls', function() {
+    return {
+      restrict: 'A',
+      link: function($scope) {
         // TODO: I don't love this
         var props = [
           'elbow.angle', 'torsoLength', 'upperArmLength', 'lowerArmLength',
-          'upperLegLength', 'lowerLegLength', 'pedal.radius', 'pedal.angle',
-          'bottomBracket.drop', 'seatTube.angle', 'seatTube.length',
-          'chainStay.length', 'seatPost.length', 'seat.length',
-          'headTube.angle', 'headTube.length', 'headSet.length', 'stem.length',
-          'stem.angle', 'handlebar.drop', 'handlebar.reach',
-          'frontWheel.diameter', 'rearWheel.center.x', 'rearWheel.center.y',
-          'rearWheel.diameter', 'stack', 'reach', 'rake'
+          'upperLegLength', 'lowerLegLength'
+        ].map(function(prop) {
+          return 'bike.' + prop;
+        }).join(',');
+
+        $scope.$watchCollection('[' + props + ']', function() {
+          $scope.bike.update();
+        });
+      }
+    };
+  })
+
+  .directive('opAdjustmentControls', function() {
+    return {
+      restrict: 'A',
+      link: function($scope) {
+        // TODO: I don't love this
+        var props = [
+          'pedal.radius', 'pedal.angle',
+          'seatPost.length', 'seat.length',
+          'stem.length', 'stem.angle'
         ].map(function(prop) {
           return 'bike.' + prop;
         }).join(',');
