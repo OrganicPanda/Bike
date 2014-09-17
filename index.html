@@ -14,9 +14,9 @@
          op-cyclist-controls op-bike-controls op-adjustment-controls>
       <h2>Cyclist</h2>
 
-      <h3>Size</h3>
+      <h3><a href="#cyclist-size">Size</a></h3>
 
-      <section>
+      <section id="cyclist-size">
         <div class="control">
           <label for="torsoLength">torsoLength</label>
           <input id="torsoLength" ng-model="bike.torsoLength"
@@ -44,9 +44,9 @@
         </div>
       </section>
 
-      <h3>Position</h3>
+      <h3><a href="#cyclist-position">Position</a></h3>
 
-      <section>
+      <section id="cyclist-position">
         <div class="control">
           <label for="elbow.angle">elbow.angle</label>
           <input id="elbow.angle" ng-model="bike.elbow.angle"
@@ -56,9 +56,9 @@
 
       <h2>Bike</h2>
 
-      <h3>Frame</h3>
+      <h3><a href="#bike-frame">Frame</a></h3>
 
-      <section>
+      <section id="bike-frame">
         <div class="control">
           <label for="bottomBracket.drop">bottomBracket.drop</label>
           <input id="bottomBracket.drop" ng-model="bike.bottomBracket.drop"
@@ -111,9 +111,9 @@
         </div>
       </section>
 
-      <h3>Handlebars</h3>
+      <h3><a href="#handlebars">Handlebars</a></h3>
 
-      <section>
+      <section id="handlebars">
         <div class="control">
           <label for="handlebar.drop">handlebar.drop</label>
           <input id="handlebar.drop" ng-model="bike.handlebar.drop"
@@ -126,9 +126,9 @@
         </div>
       </section>
 
-      <h3>Wheels</h3>
+      <h3><a href="#wheels">Wheels</a></h3>
 
-      <section>
+      <section id="wheels">
         <div class="control">
           <label for="frontWheel.diameter">frontWheel.diameter</label>
           <input id="frontWheel.diameter" ng-model="bike.frontWheel.diameter"
@@ -153,7 +153,9 @@
 
       <h2>Adjustments</h2>
 
-      <section>
+      <h3><a href="#drive-chain">Drive Chain</a></h3>
+
+      <section id="drive-chain">
         <div class="control">
           <label for="pedal.radius">pedal.radius</label>
           <input id="pedal.radius" ng-model="bike.pedal.radius"
@@ -164,6 +166,11 @@
           <input id="pedal.angle" ng-model="bike.pedal.angle"
                  type="number" min="0" max="1000">
         </div>
+      </section>
+
+      <h3><a href="#seat-adjustments">Seat</a></h3>
+
+      <section id="seat-adjustments">
         <div class="control">
           <label for="seatPost.length">seatPost.length</label>
           <input id="seatPost.length" ng-model="bike.seatPost.length"
@@ -174,6 +181,11 @@
           <input id="seat.length" ng-model="bike.seat.length"
                  type="number" min="0" max="1000">
         </div>
+      </section>
+
+      <h3><a href="#stem-adjustments">Stem</a></h3>
+
+      <section id="stem-adjustments">
         <div class="control">
           <label for="stem.length">stem.length</label>
           <input id="stem.length" ng-model="bike.stem.length"
@@ -186,9 +198,9 @@
         </div>
       </section>
 
-      <h2>Animation</h2>
+      <h2><a href="#animation">Animation</a></h2>
 
-      <section>
+      <section id="animation">
         <div class="control">
           <label for="bike-animate">Animate?</label>
           <button id="bike-animate" op-bike-animate>Go</button>

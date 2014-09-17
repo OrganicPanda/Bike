@@ -60,6 +60,11 @@ h1 + section, h2 + section, h3 + section {
   background-color: #545454;
   color: #ededed;
   padding: 1rem;
+  display: none;
+}
+
+section:target {
+  display: block;
 }
 
 header {
