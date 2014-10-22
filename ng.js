@@ -16,21 +16,31 @@ angular.module('myApp', [])
     };
   })
 
-  .directive('opCanvasBike', function() {
+  .directive('opCanvasBike', function($window) {
     return {
       restrict: 'A',
       link: function($scope, el, attrs) {
         var canvas = el[0]
-          , parent = canvas.parentNode
-          , width = parent.offsetWidth
-          , height = parent.offsetHeight;
+          , parent = canvas.parentNode;
 
-        canvas.setAttribute('width', width);
-        canvas.setAttribute('height', height);
+        var setSize = function() {
+          var width = parent.offsetWidth
+            , height = parent.offsetHeight;
+
+          canvas.setAttribute('width', width);
+          canvas.setAttribute('height', height);
+        };
+
+        setSize();
 
         var canvasBike = new CanvasBike($scope.bike, canvas);
 
         canvasBike.render();
+
+        $window.addEventListener('resize', function() {
+          setSize();
+          canvasBike.resize();
+        });
       }
     };
   })

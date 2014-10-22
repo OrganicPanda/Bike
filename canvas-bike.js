@@ -4,9 +4,6 @@
     this.canvas = canvas;
     this.context = this.canvas.getContext('2d');
 
-    this.context.lineCap = 'round'; // butt (default), round, square
-    this.context.lineJoin = 'round'; // round, bevel, miter (default)
-
     this.resize();
 
     this.renderFunction = this.render.bind(this);
@@ -26,6 +23,11 @@
 
   CanvasBike.prototype.render = function() {
     this.context.clearRect(0, 0, this.width, this.height);
+
+    this.updateScaleFactor();
+
+    this.context.lineCap = 'round'; // butt (default), round, square
+    this.context.lineJoin = 'round'; // round, bevel, miter (default)
 
     this.drawLeg('left', 'darkgreen');
     this.drawCrankarm('left');
@@ -47,9 +49,20 @@
     requestAnimationFrame(this.renderFunction);
   };
 
+  CanvasBike.prototype.updateScaleFactor = function() {
+    // TODO: take height in to account and get rid of magic numbers
+    var leftMost = (this.bike.rearWheel.center.x -
+                   (this.bike.rearWheel.diameter / 2))
+      , rightMost = (this.bike.frontWheel.center.x +
+                    (this.bike.frontWheel.diameter / 2))
+      , width = rightMost - leftMost
+      , scale = this.width / (width + 200);
+
+    this.scaleFactor = scale;
+  };
+
   CanvasBike.prototype.scale = function(val) {
-    // TODO: work out how to properly scale values in to canvas pixels
-    return val * 0.4;
+    return val * this.scaleFactor;
   };
 
   CanvasBike.prototype.beginPath = function(color, width) {
