@@ -21,10 +21,16 @@
     this.canvas.style.height = (this.height / this.scale) + 'px';*/
   };
 
-  CanvasBike.prototype.render = function() {
-    this.context.clearRect(0, 0, this.width, this.height);
+  CanvasBike.prototype.resetCanvas = function() {
+    // This clears all canvas state which is convenient
+    // for transforms and the like that are relative.
+    this.canvas.width = this.canvas.width;
+  };
 
-    this.updateScaleFactor();
+  CanvasBike.prototype.render = function() {
+    this.resetCanvas();
+
+    this.updateViewport();
 
     this.context.lineCap = 'round'; // butt (default), round, square
     this.context.lineJoin = 'round'; // round, bevel, miter (default)
@@ -49,16 +55,18 @@
     requestAnimationFrame(this.renderFunction);
   };
 
-  CanvasBike.prototype.updateScaleFactor = function() {
+  CanvasBike.prototype.updateViewport = function() {
     // TODO: take height in to account and get rid of magic numbers
     var leftMost = (this.bike.rearWheel.center.x -
                    (this.bike.rearWheel.diameter / 2))
       , rightMost = (this.bike.frontWheel.center.x +
                     (this.bike.frontWheel.diameter / 2))
+      , topMost = (this.bike.head.center.y - 100)
       , width = rightMost - leftMost
       , scale = this.width / (width + 200);
 
-    this.scaleFactor = scale;
+    this.context.scale(scale, scale);
+    this.context.translate(Math.abs(leftMost), Math.abs(topMost));
   };
 
   CanvasBike.prototype.scale = function(val) {
@@ -67,7 +75,7 @@
 
   CanvasBike.prototype.beginPath = function(color, width) {
     this.context.strokeStyle = color || 'red';
-    this.context.lineWidth = this.scale(width || 26);
+    this.context.lineWidth = width || 26;
     this.context.beginPath();
   };
 
@@ -77,24 +85,24 @@
   };
 
   CanvasBike.prototype.moveTo = function(point) {
-    this.context.moveTo(this.scale(point.x), this.scale(point.y));
+    this.context.moveTo(point.x, point.y);
   };
 
   CanvasBike.prototype.lineTo = function(point) {
-    this.context.lineTo(this.scale(point.x), this.scale(point.y));
+    this.context.lineTo(point.x, point.y);
   };
 
   CanvasBike.prototype.circle = function(center, radius) {
     this.context.arc(
-      this.scale(center.x), this.scale(center.y),
-      this.scale(radius), 0, 2 * Math.PI, false
+      center.x, center.y,
+      radius, 0, 2 * Math.PI, false
     );
   };
 
   CanvasBike.prototype.quadraticCurveTo = function(control, to) {
     this.context.quadraticCurveTo(
-      this.scale(control.x), this.scale(control.y),
-      this.scale(to.x), this.scale(to.y)
+      control.x, control.y,
+      to.x, to.y
     );
   };
 

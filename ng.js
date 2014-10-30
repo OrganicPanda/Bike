@@ -8,7 +8,7 @@ angular.module('myApp', [])
         var bike = new Bike();
 
         // TODO: un-hardcode this
-        bike.setRearWheelFloorPosition({ x: 400, y: 1500 });
+        bike.setRearWheelFloorPosition({ x: 0, y: 0 });
         bike.update();
 
         $scope.bike = bike;
