@@ -92,7 +92,14 @@
     // http://www.boardmanbikes.com/road/air98_Di2.html
     // Drop bars are traditional
     // http://www.slowtwitch.com/images/glinks/articles/WhatWeNoticed/zippdropdiagram.jpg
-    // Wheels are 700c (622mm diameter)
+    // Wheels are 700c
+    // https://www.hybikes.com/wp-content/uploads/2014/06/Bicycle_tire_size_markings-en.png
+    // --> Tyre inch size tells us (total height x tyre height x tyre width):
+    //                             (28           x 1 5/8       x 1 1/4)
+    // --> That tells us total height (28in): 711.2mm
+    // --> We know rim size (700c): 622mm
+    // --> So tyre height is ((711.2mm - 622mm) / 2): 44.6
+    // --> 44.6mm doesn't match 1 5/8 (41.27500mm) and I'm not sure why!?
     //
     // Unknowns:
     // Saddle height (adjustable but not sure what a 'normal' range is)
@@ -156,27 +163,24 @@
     this.frontWheel = {
       floor: { x: null, y: null },
       center: { x: null, y: null },
-      diameter: 622
+      diameter: 622,
+      tyre: 711
     };
     this.rearWheel = {
-      floor: { x: null, y: null },
+      floor: { x: 0, y: 0 },
       center: { x: null, y: null },
-      diameter: 622
+      diameter: 622,
+      tyre: 711
     };
     this.stack = 553;
     this.reach = 392;
     this.rake = 43;
   };
 
-  // Entry position from which everything else will be computed
-  Bike.prototype.setRearWheelFloorPosition = function(pos) {
-    this.rearWheel.floor = pos;
-  };
-
   Bike.prototype.updateRearWheel = function() {
     this.rearWheel.center = {
       x: this.rearWheel.floor.x,
-      y: (this.rearWheel.floor.y - (this.rearWheel.diameter / 2))
+      y: (this.rearWheel.floor.y - (this.rearWheel.tyre / 2))
     };
   };
 
@@ -280,7 +284,7 @@
 
     this.straightFork.bottom = {
       x: this.headTube.bottom.x + straightForkWidth,
-      y: this.rearWheel.floor.y - (this.frontWheel.diameter / 2)
+      y: this.rearWheel.floor.y - (this.frontWheel.tyre / 2)
     };
 
     // Now using that point we can get the real center by constructing
@@ -294,7 +298,7 @@
 
     this.frontWheel.floor = {
       x: this.frontWheel.center.x,
-      y: this.frontWheel.center.y + (this.frontWheel.diameter / 2)
+      y: this.frontWheel.center.y + (this.frontWheel.tyre / 2)
     };
   };
 

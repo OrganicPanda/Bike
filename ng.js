@@ -7,8 +7,6 @@ angular.module('myApp', [])
       controller: function($scope) {
         var bike = new Bike();
 
-        // TODO: un-hardcode this
-        bike.setRearWheelFloorPosition({ x: 0, y: 0 });
         bike.update();
 
         $scope.bike = bike;
@@ -55,8 +53,9 @@ angular.module('myApp', [])
           'chainStay.length',
           'headTube.angle', 'headTube.length', 'headSet.length',
           'handlebar.drop', 'handlebar.reach',
-          'frontWheel.diameter', 'rearWheel.center.x', 'rearWheel.center.y',
-          'rearWheel.diameter', 'stack', 'reach', 'rake'
+          'frontWheel.diameter', 'frontWheel.tyre', 'rearWheel.center.x',
+          'rearWheel.center.y', 'rearWheel.diameter', 'rearWheel.tyre',
+          'stack', 'reach', 'rake'
         ].map(function(prop) {
           return 'bike.' + prop;
         }).join(',');
