@@ -99,6 +99,7 @@
     // Saddle height (adjustable but not sure what a 'normal' range is)
     // Headset length
     // Stem angle
+    // Fork length: http://www.sheldonbrown.com/rinard/forklengths.htm
     // Wheel / Tyre:
     // --> Tyre inch size tells us (total height x tyre height x tyre width):
     //                             (28           x 1 5/8       x 1 1/4)
