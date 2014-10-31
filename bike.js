@@ -94,17 +94,21 @@
     // http://www.slowtwitch.com/images/glinks/articles/WhatWeNoticed/zippdropdiagram.jpg
     // Wheels are 700c
     // https://www.hybikes.com/wp-content/uploads/2014/06/Bicycle_tire_size_markings-en.png
+    //
+    // Unknowns:
+    // Saddle height (adjustable but not sure what a 'normal' range is)
+    // Headset length
+    // Stem angle
+    // Wheel / Tyre:
     // --> Tyre inch size tells us (total height x tyre height x tyre width):
     //                             (28           x 1 5/8       x 1 1/4)
     // --> That tells us total height (28in): 711.2mm
     // --> We know rim size (700c): 622mm
     // --> So tyre height is ((711.2mm - 622mm) / 2): 44.6
     // --> 44.6mm doesn't match 1 5/8 (41.27500mm) and I'm not sure why!?
-    //
-    // Unknowns:
-    // Saddle height (adjustable but not sure what a 'normal' range is)
-    // Headset length
-    // Stem angle
+    // --> My tyres are ~25mm (28-622) and my wife's are ~30mm (32-622)
+    // --> Might as well just use that number?
+    // --> Going for 700c-28c for now (622mm + 28mm + 28mm): 678mm
     this.ankle = {
       right: { x: null, y: null },
       left: { x: null, y: null }
@@ -164,13 +168,13 @@
       floor: { x: null, y: null },
       center: { x: null, y: null },
       diameter: 622,
-      tyre: 711
+      tyre: 678
     };
     this.rearWheel = {
       floor: { x: 0, y: 0 },
       center: { x: null, y: null },
       diameter: 622,
-      tyre: 711
+      tyre: 678
     };
     this.stack = 553;
     this.reach = 392;
