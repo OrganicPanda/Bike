@@ -126,3 +126,13 @@ main {
 .control input {
   width: 50%;
 }
+
+#debug {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  text-align: right;
+  text-shadow: 1px 1px 1px white;
+}

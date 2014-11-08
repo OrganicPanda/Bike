@@ -35,8 +35,6 @@
     this.context.lineCap = 'round'; // butt (default), round, square
     this.context.lineJoin = 'round'; // round, bevel, miter (default)
 
-    this.drawFloor();
-
     this.drawLeg('left', 'darkgreen');
     this.drawCrankarm('left');
 
@@ -59,17 +57,27 @@
 
   CanvasBike.prototype.updateViewport = function() {
     // TODO: take height in to account and get rid of magic numbers
-    var leftMost = (this.bike.rearWheel.center.x -
-                   (this.bike.rearWheel.tyre / 2))
-      , rightMost = (this.bike.frontWheel.center.x +
-                    (this.bike.frontWheel.tyre / 2))
-      , topMost = (this.bike.head.center.y - 100) // Head radius
-      , bottomMost = this.bike.rearWheel.floor.y
-      , width = rightMost - leftMost
-      , scale = this.width / (width + 200);
-
-    this.context.scale(scale, scale);
-    this.context.translate(Math.abs(leftMost), Math.abs(topMost));
+    var zoom = 0.8
+      , leftMostMm = (this.bike.rearWheel.center.x -
+                     (this.bike.rearWheel.tyre / 2))
+      , rightMostMm = (this.bike.frontWheel.center.x +
+                      (this.bike.frontWheel.tyre / 2))
+      , topMostMm = (this.bike.head.center.y - this.bike.head.diameter)
+      , bottomMostMm = this.bike.rearWheel.floor.y
+      , bikeWidthMm = rightMostMm - leftMostMm
+      , bikeHeightMm = bottomMostMm - topMostMm
+      , mmToPx = (this.width / bikeWidthMm) * zoom
+      , pxToMm = (bikeWidthMm / this.width) / zoom
+      , bikeWidthPx = bikeWidthMm * mmToPx
+      , bikeHeightPx = bikeHeightMm * mmToPx
+      , centerXPx = (this.width - bikeWidthPx) / 2
+      , centerYPx = (this.height - bikeHeightPx) / 2
+      , translateXMm = Math.abs(leftMostMm) + (centerXPx * pxToMm)
+      , translateYMm = Math.abs(topMostMm) + (centerYPx * pxToMm);
+    
+    // After this we can draw on the canvas in mm
+    this.context.scale(mmToPx, mmToPx);
+    this.context.translate(translateXMm, translateYMm);
   };
 
   CanvasBike.prototype.beginPath = function(color, width) {
@@ -105,15 +113,6 @@
     );
   };
 
-  CanvasBike.prototype.drawFloor = function() {
-    this.beginPath('purple', 1);
-
-    this.context.moveTo(0, 0);
-    this.context.lineTo(this.bike.frontWheel.floor.x, 0);
-
-    this.closePath();
-  };
-
   CanvasBike.prototype.drawFrame = function() {
     this.beginPath('red');
 
@@ -135,18 +134,15 @@
   };
 
   CanvasBike.prototype.drawWheel = function(wheel) {
-    this.beginPath('blue', 1);
+    var tyreWidth = 
+      (this.bike[wheel].tyre - this.bike[wheel].diameter) / 2;
+    
+    this.beginPath('black', tyreWidth);
 
     this.circle(
       this.bike[wheel].center,
-      (this.bike[wheel].tyre / 2)
+      ((this.bike[wheel].tyre - tyreWidth) / 2)
     );
-
-    this.closePath();
-
-    this.beginPath('black', 1);
-
-    this.circle(this.bike[wheel].center, (this.bike[wheel].diameter / 2));
 
     this.closePath();
   };
@@ -215,7 +211,7 @@
     this.context.fillStyle = 'green';
     this.context.beginPath();
 
-    this.circle(this.bike.head.center, 100);
+    this.circle(this.bike.head.center, this.bike.head.diameter);
 
     this.context.closePath();
     this.context.fill();

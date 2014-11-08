@@ -5,11 +5,7 @@ angular.module('myApp', [])
       restrict: 'A',
       scope: true,
       controller: function($scope) {
-        var bike = new Bike();
-
-        bike.update();
-
-        $scope.bike = bike;
+        $scope.bike = new Bike();
       }
     };
   })
