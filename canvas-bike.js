@@ -52,6 +52,8 @@
     this.drawHead();
     this.drawLeg('right');
 
+    this.drawFloor();
+
     requestAnimationFrame(this.renderFunction);
   };
 
@@ -74,7 +76,7 @@
       , centerYPx = (this.height - bikeHeightPx) / 2
       , translateXMm = Math.abs(leftMostMm) + (centerXPx * pxToMm)
       , translateYMm = Math.abs(topMostMm) + (centerYPx * pxToMm);
-    
+
     // After this we can draw on the canvas in mm
     this.context.scale(mmToPx, mmToPx);
     this.context.translate(translateXMm, translateYMm);
@@ -113,6 +115,15 @@
     );
   };
 
+  CanvasBike.prototype.drawFloor = function() {
+    this.beginPath('blue', 1);
+
+    this.context.moveTo(-200, 0);
+    this.context.lineTo(this.bike.frontWheel.floor.x + 200, 0);
+
+    this.closePath();
+  };
+
   CanvasBike.prototype.drawFrame = function() {
     this.beginPath('red');
 
@@ -134,9 +145,9 @@
   };
 
   CanvasBike.prototype.drawWheel = function(wheel) {
-    var tyreWidth = 
+    var tyreWidth =
       (this.bike[wheel].tyre - this.bike[wheel].diameter) / 2;
-    
+
     this.beginPath('black', tyreWidth);
 
     this.circle(

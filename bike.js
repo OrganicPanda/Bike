@@ -61,23 +61,116 @@
       }
     },
 
-    // From: http://nayuki.eigenstate.org/res/triangle-solver-javascript/
-    // triangle-solver.js
-    degToRad: function(x) {
-      return x / 180 * Math.PI;
+    delta: function(from, to) {
+      var xs = 0
+        , ys = 0;
+
+      xs = to.x - from.x;
+      xs = xs * xs;
+
+      ys = to.y - from.y;
+      ys = ys * ys;
+
+      return Math.sqrt(xs + ys);
+    },
+
+    // Triangle solving key:
+    //      / \
+    //     / A \
+    //  b /     \ c
+    //   /       \
+    //  / C     B \
+    // /___________\
+    //       a
+
+    // From: http://stackoverflow.com/a/135930
+    degToRad: function(degrees) {
+      return degrees * (Math.PI / 180);
+    },
+
+    // From: http://stackoverflow.com/a/135930
+    radToDeg: function(radians) {
+      return radians * (180 / Math.PI);
     },
 
     // From: http://nayuki.eigenstate.org/res/triangle-solver-javascript/
     // triangle-solver.js
+    //
+    // Returns side x when given the other sides and an angle
+    //
+    // Angles are Degrees
+    //
+    // Get `a` if given `b`, `c` and `A`
+    // Get `b` if given `c`, `a` and `B`
+    // Get `c` if given `a`, `b` and `C`
     solveSide: function(a, b, C) {
-      return Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(C));
+      return Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(trig.degToRad(C)));
     },
 
+    // Angles are Degrees
+    // Take sides `a` and `b` along with their included angle `C`
+    // and return angle `B`
+    sas: function(a, b, C) {
+      var a2 = a * a
+        , b2 = b * b
+        , c = trig.solveSide(a, b, C)
+        , c2 = c * c
+        , A = trig.radToDeg(Math.acos((b2 + c2 - a2) / (2 * b * c)))
+        , B = 180 - A - C;
+
+      return B;
+    },
+
+    // Angles are Degrees
     posOnCircle: function(center, radius, angle) {
+      var radians = trig.degToRad(angle);
+
       return {
-        x: (radius * Math.cos(angle)) + center.x,
-        y: (radius * Math.sin(angle)) + center.y
+        x: (radius * Math.cos(radians)) + center.x,
+        y: (radius * Math.sin(radians)) + center.y
       };
+    },
+
+    // Angles are Degrees
+    getPosByAngleAndLength: function(pos, angle, length, negWidth, negHeight) {
+      var angleRad = trig.degToRad(angle)
+        , height = Math.sin(angleRad) * length
+        , width = Math.cos(angleRad) * length;
+
+      return {
+        x: negWidth ? pos.x - width : pos.x + width,
+        y: negHeight ? pos.y - height : pos.y + height
+      };
+    },
+
+    // Returns degrees
+    getAngle: function(origin, point) {
+      var inverse = origin.y < point.y
+        , correct = {
+            x: point.x,
+            y: origin.y
+          }
+        , len1 = trig.delta(origin, correct)
+        , len2 = trig.delta(correct, point)
+        , angle = trig.sas(
+            len1,
+            len2,
+            90
+          );
+
+      return inverse ? angle : -angle;
+    },
+
+    // Angle is degrees
+    rotate: function(origin, current, rotation) {
+      var currentRotation = trig.getAngle(origin, current)
+        , newPosition = trig.posOnCircle(
+            origin,
+            trig.delta(origin, current),
+            currentRotation - rotation
+          );
+
+      return newPosition;
     }
   };
 
@@ -92,14 +185,19 @@
     // http://www.boardmanbikes.com/road/air98_Di2.html
     // Drop bars are traditional
     // http://www.slowtwitch.com/images/glinks/articles/WhatWeNoticed/zippdropdiagram.jpg
+    // Fork is 370mm but nobody seems very clear about how this is measured?
+    // http://www.sheldonbrown.com/rinard/forklengths.htm
     // Wheels are 700c
     // https://www.hybikes.com/wp-content/uploads/2014/06/Bicycle_tire_size_markings-en.png
     //
     // Unknowns:
-    // Saddle height (adjustable but not sure what a 'normal' range is)
-    // Headset length
-    // Stem angle
     // Fork length: http://www.sheldonbrown.com/rinard/forklengths.htm
+    // It's not clear whether the angles given in a bike spec assume:
+    // a) The box described by Bottom Bracket Drop and Chain Stay Length
+    //    is parallel to the ground. This is the method I'm using.
+    // a) The fork length the bike is sold with
+    // b) A default fork length
+    // They never say which method they used although (A) seems likely.
     // Wheel / Tyre:
     // --> Tyre inch size tells us (total height x tyre height x tyre width):
     //                             (28           x 1 5/8       x 1 1/4)
@@ -110,6 +208,10 @@
     // --> My tyres are ~25mm (28-622) and my wife's are ~30mm (32-622)
     // --> Might as well just use that number?
     // --> Going for 700c-28c for now (622mm + 28mm + 28mm): 678mm
+    //
+    // Saddle height (adjustable but not sure what a 'normal' range is)
+    // Headset length
+    // Stem angle
     this.ankle = {
       right: { x: null, y: null },
       left: { x: null, y: null }
@@ -168,7 +270,7 @@
       drop: 130,
       reach: 87.5
     };
-    this.straightFork = { bottom: { x: null, y: null } };
+    this.straightFork = { bottom: { x: null, y: null }, length: 370 };
     this.frontWheel = {
       floor: { x: null, y: null },
       center: { x: null, y: null },
@@ -287,18 +389,18 @@
     // center of the wheel if it were straight and the same angle
     // as the headtube. We'll call this straightFork.bottom. This is a simple
     // triangle
-    var headTubeAngleRad = trig.degToRad(this.headTube.angle) // TODO: DRY
-      , straightForkHeight = this.rearWheel.center.y - this.headTube.bottom.y
-      , straightForkWidth = Math.cos(headTubeAngleRad) * straightForkHeight;
-
-    this.straightFork.bottom = {
-      x: this.headTube.bottom.x + straightForkWidth,
-      y: this.rearWheel.floor.y - (this.frontWheel.tyre / 2)
-    };
+    this.straightFork.bottom = trig.getPosByAngleAndLength(
+      this.headTube.bottom,
+      this.headTube.angle,
+      this.straightFork.length,
+      false,
+      false
+    );
 
     // Now using that point we can get the real center by constructing
     // another triangle that uses the rake length
-    var rakeXDelta = (1 / Math.sin(headTubeAngleRad)) * this.rake;
+    // TODO: Figure out what this does and move to `trig`
+    var rakeXDelta = (1 / Math.sin(trig.degToRad(this.headTube.angle))) * this.rake;
 
     this.frontWheel.center = {
       x: this.straightFork.bottom.x + rakeXDelta,
@@ -311,17 +413,54 @@
     };
   };
 
+  Bike.prototype.rotateFrame = function() {
+    // Now we have a big problem
+    // If this.frontWheel.center.y doesn't match this.rearWheel.center.y
+    // then the front of the bike is either floating or sinking. Not ideal.
+    // We need to rotate everything we've worked out so far to correct this.
+
+    // First work out how far off we are
+    var origin = this.rearWheel.center
+      , rotation = trig.getAngle(origin, this.frontWheel.center);
+
+    // Now we need to rotate everything
+    var points = [
+      this.bottomBracket,
+      this.seatTube.top,
+      this.seatPost.top,
+      this.seat.back,
+      this.seat.front,
+      this.headTube.top,
+      this.headTube.bottom,
+      this.headSet.top,
+      this.stem.front,
+      this.handlebar.curve,
+      this.handlebar.bottom,
+      this.straightFork.bottom,
+      this.frontWheel.floor,
+      this.frontWheel.center
+    ];
+
+    points.forEach(function(point) {
+      var newPoint = trig.rotate(origin, point, rotation);
+
+      point.x = newPoint.x;
+      point.y = newPoint.y;
+    });
+  };
+
   Bike.prototype.updateLegs = function() {
     // The hip is fixed to the back of the seat for now
     this.hip.x = this.seat.back.x;
     this.hip.y = this.seat.back.y;
 
     this.ankle.right = trig.posOnCircle(
-      this.bottomBracket, this.pedal.radius, trig.degToRad(this.pedal.angle)
+      this.bottomBracket, this.pedal.radius, this.pedal.angle
     );
 
     this.ankle.left = trig.posOnCircle(
-      this.bottomBracket, this.pedal.radius, trig.degToRad(this.pedal.angle - 180)
+      this.bottomBracket, this.pedal.radius,
+      this.pedal.angle - 180
     );
 
     // This is the clever bit
@@ -356,10 +495,9 @@
     // - elbow angle
 
     // Work out the straight-line distance from wrist to shoulder
-    var elbowAngleRad = trig.degToRad(this.elbow.angle)
-      , armLength = trig.solveSide(
-          this.upperArmLength, this.lowerArmLength, elbowAngleRad
-        );
+    var armLength = trig.solveSide(
+      this.upperArmLength, this.lowerArmLength, this.elbow.angle
+    );
 
     // Work out where that would meet the torso
     this.shoulder = trig.intersection(
@@ -406,6 +544,11 @@
     this.updateStem();
     this.updateHandlebar();
     this.updateRake();
+
+    // The bike will need to be rotated at this point to make the
+    // front wheel level with the ground
+    this.rotateFrame();
+
     this.updateLegs();
     this.updateArms();
   };

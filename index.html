@@ -109,6 +109,11 @@
           <input id="rake" ng-model="bike.rake"
                  type="number" min="0" max="1000">
         </div>
+        <div class="control">
+          <label for="straightFork.length">Fork Length</label>
+          <input id="straightFork.length" ng-model="bike.straightFork.length"
+                 type="number" min="0" max="1000">
+        </div>
       </section>
 
       <h3>Handlebars</h3>
@@ -211,10 +216,10 @@
     <main role="main">
       <canvas op-canvas-bike></canvas>
     </main>
-    
+
     <div id="debug"></div>
 
-    <script src="./debug.js"></script>
+    <!-- <script src="./debug.js"></script> -->
     <script src="bike.js"></script>
     <script src="canvas-bike.js"></script>
     <script src="ng.js"></script>

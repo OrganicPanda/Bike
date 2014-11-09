@@ -51,7 +51,7 @@ angular.module('myApp', [])
           'handlebar.drop', 'handlebar.reach',
           'frontWheel.diameter', 'frontWheel.tyre', 'rearWheel.center.x',
           'rearWheel.center.y', 'rearWheel.diameter', 'rearWheel.tyre',
-          'stack', 'reach', 'rake'
+          'stack', 'reach', 'rake', 'straightFork.length'
         ].map(function(prop) {
           return 'bike.' + prop;
         }).join(',');
