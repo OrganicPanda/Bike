@@ -308,23 +308,25 @@
   Bike.prototype.updateSeatTube = function() {
     // The top of the seat tube is calculated relative to the bottom bracket
     // using the seat tube angle and length
-    var seatTubeAngleRad = trig.degToRad(this.seatTube.angle)
-      , seatTubeHeight = Math.sin(seatTubeAngleRad) * this.seatTube.length
-      , seatTubeWidth = Math.cos(seatTubeAngleRad) * this.seatTube.length;
-
-    this.seatTube.top.x = this.bottomBracket.x - seatTubeWidth;
-    this.seatTube.top.y = this.bottomBracket.y - seatTubeHeight;
+    this.seatTube.top = trig.getPosByAngleAndLength(
+      this.bottomBracket,
+      this.seatTube.angle,
+      this.seatTube.length,
+      true,
+      true
+    );
   };
 
   Bike.prototype.updateSeatPost = function() {
     // The top of the seat post is calculated relative to the top of the
     // seat tube using the seat tube angle and seat post length
-    var seatPostAngleRad = trig.degToRad(this.seatTube.angle)
-      , seatPostHeight = Math.sin(seatPostAngleRad) * this.seatPost.length
-      , seatPostWidth = Math.cos(seatPostAngleRad) * this.seatPost.length;
-
-    this.seatPost.top.x = this.seatTube.top.x - seatPostWidth;
-    this.seatPost.top.y = this.seatTube.top.y - seatPostHeight;
+    this.seatPost.top = trig.getPosByAngleAndLength(
+      this.seatTube.top,
+      this.seatTube.angle,
+      this.seatPost.length,
+      true,
+      true
+    );
   };
 
   Bike.prototype.updateSeat = function() {
@@ -344,34 +346,35 @@
 
     // The bottom of the head tube is calculated relative to the top of the
     // head tube using the head tube angle and length
-    var headTubeAngleRad = trig.degToRad(this.headTube.angle)
-      , headTubeHeight = Math.sin(headTubeAngleRad) * this.headTube.length
-      , headTubeWidth = Math.cos(headTubeAngleRad) * this.headTube.length;
-
-    this.headTube.bottom.x = this.headTube.top.x + headTubeWidth;
-    this.headTube.bottom.y = this.headTube.top.y + headTubeHeight;
+    this.headTube.bottom = trig.getPosByAngleAndLength(
+      this.headTube.top,
+      this.headTube.angle,
+      this.headTube.length
+    );
   };
 
   Bike.prototype.updateHeadSet = function() {
     // The top of the head set is calculated relative to the top of the
     // head tube using the head tube angle and head set length
-    var headSetAngleRad = trig.degToRad(this.headTube.angle)
-      , headSetHeight = Math.sin(headSetAngleRad) * this.headSet.length
-      , headSetWidth = Math.cos(headSetAngleRad) * this.headSet.length;
-
-    this.headSet.top.x = this.headTube.top.x - headSetWidth;
-    this.headSet.top.y = this.headTube.top.y - headSetHeight;
+    this.headSet.top = trig.getPosByAngleAndLength(
+      this.headTube.top,
+      this.headTube.angle,
+      this.headSet.length,
+      true,
+      true
+    );
   };
 
   Bike.prototype.updateStem = function() {
     // The top of the head set is calculated relative to the top of the
     // head tube using the head tube angle and head set length
-    var stemAngleRad = trig.degToRad(this.stem.angle)
-      , stemHeight = Math.sin(stemAngleRad) * this.stem.length
-      , stemWidth = Math.cos(stemAngleRad) * this.stem.length;
-
-    this.stem.front.x = this.headSet.top.x + stemWidth;
-    this.stem.front.y = this.headSet.top.y - stemHeight;
+    this.stem.front = trig.getPosByAngleAndLength(
+      this.headSet.top,
+      this.stem.angle,
+      this.stem.length,
+      false,
+      true
+    );
   };
 
   Bike.prototype.updateHandlebar = function() {
@@ -392,9 +395,7 @@
     this.straightFork.bottom = trig.getPosByAngleAndLength(
       this.headTube.bottom,
       this.headTube.angle,
-      this.straightFork.length,
-      false,
-      false
+      this.straightFork.length
     );
 
     // Now using that point we can get the real center by constructing
