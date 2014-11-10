@@ -72,7 +72,7 @@ header {
 
 main {
   position: absolute;
-  overflow: auto;
+  overflow: hidden;
   top: 3rem;
   left: 30%;
   bottom: 0;

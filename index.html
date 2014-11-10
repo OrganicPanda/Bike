@@ -261,19 +261,48 @@
         </div>
       </section>
 
-      <h2>Animation</h2>
+      <h2>Misc</h2>
 
-      <section id="animation">
+      <section id="misc">
         <div class="control">
           <label for="bike-animate">
             Animate?
           </label>
           <button id="bike-animate" op-bike-animate>Go</button>
         </div>
+        <div class="control">
+          <label for="image-url">
+            Image URL
+          </label>
+          <input id="image-url" ng-model="imageUrl" type="text">
+        </div>
+        <div class="control">
+          <label for="image-scale">
+            Image Scale ({{ imageScale }}x)
+          </label>
+          <input id="image-scale" ng-model="imageScale"
+                 type="range" min="0" max="5" step="0.2" value="1" integer>
+        </div>
+        <div class="control">
+          <label for="image-translate-x">
+            Image Translate X ({{ imageTranslateX }}%)
+          </label>
+          <input id="image-translate-x" ng-model="imageTranslateX"
+                 type="range" min="-100" max="100" value="0" integer>
+        </div>
+        <div class="control">
+          <label for="image-translate-y">
+            Image Translate Y ({{ imageTranslateY }}%)
+          </label>
+          <input id="image-translate-y" ng-model="imageTranslateY"
+                 type="range" min="-100" max="100" value="0" integer>
+        </div>
       </section>
     </nav>
 
     <main role="main">
+      <img src="{{ imageUrl }}"
+           style="transform: scale({{ imageScale }}) translate({{ imageTranslateX }}%, {{ imageTranslateY }}%);">
       <canvas op-canvas-bike></canvas>
     </main>
 
