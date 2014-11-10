@@ -18,29 +18,29 @@
 
       <section id="cyclist-size">
         <div class="control">
-          <label for="torsoLength">Torso Length</label>
+          <label for="torsoLength">Torso Length ({{ bike.torsoLength }}mm)</label>
           <input id="torsoLength" ng-model="bike.torsoLength"
-                 type="number" min="0" max="1000">
+                 type="range" min="300" max="600" integer>
         </div>
         <div class="control">
-          <label for="upperArmLength">Upper Arm Length</label>
+          <label for="upperArmLength">Upper Arm Length ({{ bike.upperArmLength }}mm)</label>
           <input id="upperArmLength" ng-model="bike.upperArmLength"
-                 type="number" min="0" max="1000">
+                 type="range" min="100" max="500" integer>
         </div>
         <div class="control">
-          <label for="lowerArmLength">Lower Arm Length</label>
+          <label for="lowerArmLength">Lower Arm Length ({{ bike.lowerArmLength }}mm)</label>
           <input id="lowerArmLength" ng-model="bike.lowerArmLength"
-                 type="number" min="0" max="1000">
+                 type="range" min="100" max="500" integer>
         </div>
         <div class="control">
-          <label for="upperLegLength">Upper Leg Length</label>
+          <label for="upperLegLength">Upper Leg Length ({{ bike.upperLegLength }}mm)</label>
           <input id="upperLegLength" ng-model="bike.upperLegLength"
-                 type="number" min="0" max="1000">
+                 type="range" min="100" max="500" integer>
         </div>
         <div class="control">
-          <label for="lowerLegLength">Lower Leg Length</label>
+          <label for="lowerLegLength">Lower Leg Length ({{ bike.lowerLegLength }}mm)</label>
           <input id="lowerLegLength" ng-model="bike.lowerLegLength"
-                 type="number" min="0" max="1000">
+                 type="range" min="100" max="500" integer>
         </div>
       </section>
 
@@ -48,9 +48,9 @@
 
       <section id="cyclist-position">
         <div class="control">
-          <label for="elbow.angle">Elbow Angle</label>
+          <label for="elbow.angle">Elbow Angle ({{ bike.elbow.angle }}&#176;)</label>
           <input id="elbow.angle" ng-model="bike.elbow.angle"
-                 type="number" min="0" max="1000">
+                 type="range" min="75" max="180" integer>
         </div>
       </section>
 
@@ -60,59 +60,59 @@
 
       <section id="bike-frame">
         <div class="control">
-          <label for="bottomBracket.drop">Bottom Bracket Drop</label>
+          <label for="bottomBracket.drop">Bottom Bracket Drop ({{ bike.bottomBracket.drop }}mm)</label>
           <input id="bottomBracket.drop" ng-model="bike.bottomBracket.drop"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="500" integer>
         </div>
         <div class="control">
-          <label for="seatTube.angle">Seat Tube Angle</label>
+          <label for="seatTube.angle">Seat Tube Angle ({{ bike.seatTube.angle }}&#176;)</label>
           <input id="seatTube.angle" ng-model="bike.seatTube.angle"
-                 type="number" min="0" max="1000">
+                 type="range" min="65" max="120" integer>
         </div>
         <div class="control">
-          <label for="seatTube.length">Seat Tube Length</label>
+          <label for="seatTube.length">Seat Tube Length ({{ bike.seatTube.length }}mm)</label>
           <input id="seatTube.length" ng-model="bike.seatTube.length"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="1000" integer>
         </div>
         <div class="control">
-          <label for="chainStay.length">Chain Stay Length</label>
+          <label for="chainStay.length">Chain Stay Length ({{ bike.chainStay.length }}mm)</label>
           <input id="chainStay.length" ng-model="bike.chainStay.length"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="1000" integer>
         </div>
         <div class="control">
-          <label for="headTube.angle">Head Tube Angle</label>
+          <label for="headTube.angle">Head Tube Angle ({{ bike.headTube.angle }}&#176;)</label>
           <input id="headTube.angle" ng-model="bike.headTube.angle"
-                 type="number" min="0" max="1000">
+                 type="range" min="5" max="110" integer>
         </div>
         <div class="control">
-          <label for="headTube.length">Head Tube Length</label>
+          <label for="headTube.length">Head Tube Length ({{ bike.headTube.length }}mm)</label>
           <input id="headTube.length" ng-model="bike.headTube.length"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="1000" integer>
         </div>
         <div class="control">
-          <label for="headSet.length">Head Set Length</label>
+          <label for="headSet.length">Head Set Length ({{ bike.headSet.length }}mm)</label>
           <input id="headSet.length" ng-model="bike.headSet.length"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="1000" integer>
         </div>
         <div class="control">
-          <label for="stack">Stack</label>
+          <label for="stack">Stack ({{ bike.stack }}mm)</label>
           <input id="stack" ng-model="bike.stack"
-                 type="number" min="0" max="1000">
+                 type="range" min="100" max="500" integer>
         </div>
         <div class="control">
-          <label for="reach">Reach</label>
+          <label for="reach">Reach ({{ bike.reach }}mm)</label>
           <input id="reach" ng-model="bike.reach"
-                 type="number" min="0" max="1000">
+                 type="range" min="100" max="600" integer>
         </div>
         <div class="control">
-          <label for="rake">Rake</label>
+          <label for="rake">Rake ({{ bike.rake }}mm)</label>
           <input id="rake" ng-model="bike.rake"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="500" integer>
         </div>
         <div class="control">
-          <label for="straightFork.length">Fork Length</label>
+          <label for="straightFork.length">Fork Length ({{ bike.straightFork.length }}mm)</label>
           <input id="straightFork.length" ng-model="bike.straightFork.length"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="1000" integer>
         </div>
       </section>
 
@@ -120,14 +120,14 @@
 
       <section id="handlebars">
         <div class="control">
-          <label for="handlebar.drop">Handlebar Drop</label>
+          <label for="handlebar.drop">Handlebar Drop ({{ bike.handlebar.drop }}mm)</label>
           <input id="handlebar.drop" ng-model="bike.handlebar.drop"
-                 type="number" min="0" max="1000">
+                 type="range" min="50" max="500" integer>
         </div>
         <div class="control">
-          <label for="handlebar.reach">Handlebar Reach</label>
+          <label for="handlebar.reach">Handlebar Reach ({{ bike.handlebar.reach }}mm)</label>
           <input id="handlebar.reach" ng-model="bike.handlebar.reach"
-                 type="number" min="0" max="1000">
+                 type="range" min="50" max="500" integer>
         </div>
       </section>
 
@@ -135,24 +135,24 @@
 
       <section id="wheels">
         <div class="control">
-          <label for="frontWheel.diameter">Front Wheel Diameter</label>
+          <label for="frontWheel.diameter">Front Wheel Diameter ({{ bike.frontWheel.diameter }}mm)</label>
           <input id="frontWheel.diameter" ng-model="bike.frontWheel.diameter"
-                 type="number" min="0" max="1000">
+                 type="range" min="200" max="1000" integer>
         </div>
         <div class="control">
-          <label for="frontWheel.tyre">Front Wheel Tyre</label>
+          <label for="frontWheel.tyre">Front Wheel Tyre ({{ bike.frontWheel.tyre }}mm)</label>
           <input id="frontWheel.tyre" ng-model="bike.frontWheel.tyre"
-                 type="number" min="0" max="1000">
+                 type="range" min="200" max="1000" integer>
         </div>
         <div class="control">
-          <label for="rearWheel.diameter">Rear Wheel Diameter</label>
+          <label for="rearWheel.diameter">Rear Wheel Diameter ({{ bike.rearWheel.diameter }}mm)</label>
           <input id="rearWheel.diameter" ng-model="bike.rearWheel.diameter"
-                 type="number" min="0" max="1000">
+                 type="range" min="200" max="1000" integer>
         </div>
         <div class="control">
-          <label for="rearWheel.tyre">Rear Wheel Tyre</label>
+          <label for="rearWheel.tyre">Rear Wheel Tyre ({{ bike.rearWheel.tyre }}mm)</label>
           <input id="rearWheel.tyre" ng-model="bike.rearWheel.tyre"
-                 type="number" min="0" max="1000">
+                 type="range" min="200" max="1000" integer>
         </div>
       </section>
 
@@ -162,14 +162,14 @@
 
       <section id="drive-chain">
         <div class="control">
-          <label for="pedal.radius">Pedal Radius</label>
+          <label for="pedal.radius">Crank Length ({{ bike.pedal.radius }}mm)</label>
           <input id="pedal.radius" ng-model="bike.pedal.radius"
-                 type="number" min="0" max="1000">
+                 type="range" min="50" max="300" integer>
         </div>
         <div class="control">
-          <label for="pedal.angle">Pedal Angle</label>
+          <label for="pedal.angle">Pedal Angle ({{ bike.pedal.angle }}&#176;)</label>
           <input id="pedal.angle" ng-model="bike.pedal.angle"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="360" integer>
         </div>
       </section>
 
@@ -177,14 +177,14 @@
 
       <section id="seat-adjustments">
         <div class="control">
-          <label for="seatPost.length">Seat Post Length</label>
+          <label for="seatPost.length">Seat Post Length ({{ bike.seatPost.length }}mm)</label>
           <input id="seatPost.length" ng-model="bike.seatPost.length"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="1000" integer>
         </div>
         <div class="control">
-          <label for="seat.length">Seat Length</label>
+          <label for="seat.length">Seat Length ({{ bike.seat.length }}mm)</label>
           <input id="seat.length" ng-model="bike.seat.length"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="1000" integer>
         </div>
       </section>
 
@@ -192,14 +192,14 @@
 
       <section id="stem-adjustments">
         <div class="control">
-          <label for="stem.length">Stem Length</label>
+          <label for="stem.length">Stem Length ({{ bike.stem.length }}mm)</label>
           <input id="stem.length" ng-model="bike.stem.length"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="1000" integer>
         </div>
         <div class="control">
-          <label for="stem.angle">Stem Angle</label>
+          <label for="stem.angle">Stem Angle ({{ bike.stem.angle }}&#176;)</label>
           <input id="stem.angle" ng-model="bike.stem.angle"
-                 type="number" min="0" max="1000">
+                 type="range" min="0" max="90" integer>
         </div>
       </section>
 

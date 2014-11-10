@@ -132,4 +132,17 @@ angular.module('myApp', [])
         });
       }
     };
+  })
+
+  // By: Yanik Ceulemans
+  // From: http://stackoverflow.com/a/16187142
+  .directive('integer', function() {
+    return {
+      require: 'ngModel',
+      link: function(scope, ele, attr, ctrl) {
+        ctrl.$parsers.unshift(function(viewValue) {
+          return parseInt(viewValue, 10);
+        });
+      }
+    };
   });
