@@ -5,13 +5,14 @@
 		<link rel="stylesheet" href="style.css">
 		<script src="./vendor/angular-1.2.14/angular.min.js"></script>
 	</head>
-	<body op-bike>
+	<body op-bike ng-init="navOpen = false">
   	<header>
-      <h1>Bike</h1>
+      <h1>Bike <input type="checkbox" ng-model="navOpen"></h1>
     </header>
 
     <nav class="site-nav" role="navigation"
-         op-cyclist-controls op-bike-controls op-adjustment-controls>
+         op-cyclist-controls op-bike-controls op-adjustment-controls
+         ng-class="{ open: navOpen }">
       <h2>Cyclist</h2>
 
       <h3>Size</h3>
