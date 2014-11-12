@@ -83,12 +83,14 @@ header button {
 }
 
 body {
-  perspective: 100vw;
+  -webkit-perspective: 100vw;
+          perspective: 100vw;
   overflow: hidden;
 }
 
 .site-nav, main {
-  transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+          transition: all 0.2s ease-in;
 }
 
 .site-nav {
@@ -100,12 +102,16 @@ body {
   right: 0;
   bottom: 0;
   width: 90%;
-  transform: translate(100%, 0);
+  -webkit-transform: translate(100%, 0);
+      -ms-transform: translate(100%, 0);
+          transform: translate(100%, 0);
   box-shadow: 0px 0px 0px 0px hsla(0, 0%, 15%, 0.5);
 }
 
 .site-nav.open {
-  transform: translate(0, 0);
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
   box-shadow: -10px 0px 40px 0px hsla(0, 0%, 15%, 0.5);
 }
 
@@ -117,13 +123,17 @@ main {
   left: 0;
   bottom: 0;
   right: 0;
-  transform: rotateY(0deg);
-  transform-origin: 0;
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+  -webkit-transform-origin: 0;
+      -ms-transform-origin: 0;
+          transform-origin: 0;
   background-color: #ededed;
 }
 
 .site-nav.open + main {
-  transform: rotateY(10deg) translateX(-50%);
+  -webkit-transform: rotateY(10deg) translateX(-50%);
+          transform: rotateY(10deg) translateX(-50%);
 }
 
 [op-canvas-bike] {
@@ -155,7 +165,8 @@ main {
   }
 
   .site-nav.open + main {
-    transform: rotateY(10deg) translateX(-25%);
+    -webkit-transform: rotateY(10deg) translateX(-25%);
+            transform: rotateY(10deg) translateX(-25%);
   }
 }
 
@@ -165,7 +176,8 @@ main {
   }
 
   .site-nav.open + main {
-    transform: rotateY(10deg) translateX(-15%);
+    -webkit-transform: rotateY(10deg) translateX(-15%);
+            transform: rotateY(10deg) translateX(-15%);
   }
 }
 
@@ -261,3 +273,5 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #000000;
 }
+
+/*# sourceMappingURL=style-prefixed.css.map */

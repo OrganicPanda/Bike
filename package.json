@@ -1,0 +1,25 @@
+{
+  "name": "Bike",
+  "version": "0.0.1",
+  "description": "Bike size calculator",
+  "main": "bike.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OrganicPanda/Bike.git"
+  },
+  "author": "Steve Thomson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OrganicPanda/Bike/issues"
+  },
+  "homepage": "https://github.com/OrganicPanda/Bike",
+  "dependencies": {
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {
+    "grunt-autoprefixer": "^1.0.1"
+  }
+}
