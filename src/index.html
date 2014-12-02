@@ -6,8 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<title>Bike</title>
-		<link rel="stylesheet" href="style-prefixed.css">
-		<script src="./vendor/angular-1.2.14/angular.min.js"></script>
+
+    <!-- <prod>
+    <link rel="stylesheet" href="style.css">
+    <script src="../vendor/angular-1.2.14/angular.min.js"></script>
+         </prod> -->
+
+    <!-- <dev> -->
+    <link rel="stylesheet" href="style.css">
+    <script src="../vendor/angular-1.2.14/angular.js"></script>
+    <!-- </dev> -->
 	</head>
 	<body op-bike ng-init="navOpen = false">
   	<header>
@@ -311,11 +319,14 @@
       <canvas op-canvas-bike></canvas>
     </main>
 
-    <div id="debug"></div>
+    <!-- <prod>
+    <script src="bike.min.js"></script>
+         </prod> -->
 
-    <!-- <script src="./debug.js"></script> -->
+    <!-- <dev> -->
     <script src="bike.js"></script>
     <script src="canvas-bike.js"></script>
     <script src="ng.js"></script>
+    <!-- </dev> -->
 	</body>
 </html>
