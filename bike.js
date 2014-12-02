@@ -547,7 +547,7 @@
     this.updateRake();
 
     // The bike will need to be rotated at this point to make the
-    // front wheel level with the ground
+    // front wheel level with the ground, hopefully
     this.rotateFrame();
 
     this.updateLegs();
