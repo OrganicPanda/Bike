@@ -67,10 +67,24 @@
       , topMostMm = (this.bike.head.center.y - this.bike.head.diameter)
       , bottomMostMm = this.bike.rearWheel.floor.y
       , bikeWidthMm = rightMostMm - leftMostMm
-      , bikeHeightMm = bottomMostMm - topMostMm
-      , mmToPx = (this.width / bikeWidthMm) * zoom
-      , pxToMm = (bikeWidthMm / this.width) / zoom
-      , bikeWidthPx = bikeWidthMm * mmToPx
+      , bikeHeightMm = bottomMostMm - topMostMm;
+
+    // Which axis is most limited?
+    var heightLimited = (bikeWidthMm / this.width) <
+                        (bikeHeightMm / this.height);
+
+    // We will want to base our scaling on the most limited axis
+    var mmToPx, pxToMm;
+
+    if (heightLimited) {
+      mmToPx = (this.height / bikeHeightMm) * zoom;
+      pxToMm = (bikeHeightMm / this.height) / zoom;
+    } else {
+      mmToPx = (this.width / bikeWidthMm) * zoom;
+      pxToMm = (bikeWidthMm / this.width) / zoom;
+    }
+
+    var bikeWidthPx = bikeWidthMm * mmToPx
       , bikeHeightPx = bikeHeightMm * mmToPx
       , centerXPx = (this.width - bikeWidthPx) / 2
       , centerYPx = (this.height - bikeHeightPx) / 2
