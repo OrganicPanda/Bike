@@ -1,6 +1,6 @@
 var hapi = require('hapi')
   , joi = require('joi')
-  , handlers = require('../handlers');
+  , handlers = require('../handlers/bikes');
 
 module.exports = [{
   method: 'GET',
@@ -9,11 +9,6 @@ module.exports = [{
     handler: handlers.getBike,
     description: 'Get bike',
     notes: ['Get a bike from the collection'],
-    plugins: {
-      // 'hapi-swagger': {
-      //   responseMessages: extendedHTTPErrors
-      // }
-    },
     tags: ['api', 'public'],
     validate: { 
       params: {
@@ -30,11 +25,6 @@ module.exports = [{
     handler: handlers.getBikes,
     description: 'Get bikes',
     notes: ['Gets a list of bikes from the collection'],
-    plugins: {
-      // 'hapi-swagger': {
-      //   responseMessages: standardHTTPErrors
-      // }
-    },
     tags: ['api', 'public'],
     validate: { 
       query: {
@@ -60,23 +50,8 @@ module.exports = [{
     handler: handlers.addBike,
     description: 'Add bike',
     notes: ['Adds a bike to the collection'],
-    plugins: {
-      // 'hapi-swagger': {
-      //   responseMessages: standardHTTPErrors,
-      //   payloadType: 'form'
-      // }
-    },
     tags: ['api', 'public'],
-    // auth: {
-    //   strategies:['bearer']
-    // },
     validate: {
-      // headers: joi.object({
-      //     Authorization: joi.string()
-      //         .default('Bearer ')
-      //         .description('bearer token takes "Bearer " and token'),
-      //       }).unknown(),
-
       payload: {
         url: joi.string()
           .required()
@@ -103,23 +78,8 @@ module.exports = [{
     handler: handlers.updateBike,
     description: 'Update bike',
     notes: ['Update a bike in the collection'],
-    plugins: {
-      // 'hapi-swagger': {
-      //   responseMessages: extendedHTTPErrors,
-      //   payloadType: 'form'
-      // }
-    },
     tags: ['api', 'public'],
-    // auth: {
-    //   strategies:['bearer']
-    // },
     validate: {
-      // headers: joi.object({
-      //     Authorization: joi.string()
-      //         .default('Bearer ')
-      //         .description('bearer token takes "Bearer " and token'),
-      //       }).unknown(),
-
       params: {
         id: joi.string()
           .required()
@@ -151,22 +111,8 @@ module.exports = [{
     handler: handlers.removeBike,
     description: 'Delete bike',
     notes: ['Deletes a bikes from the collection'],
-    plugins: {
-      // 'hapi-swagger': {
-      //   responseMessages: extendedHTTPErrors
-      // }
-    },
     tags: ['api', 'public'],
-    // auth: {
-    //   strategies:['bearer']
-    // },
     validate: {
-      // headers: joi.object({
-      //     Authorization: joi.string()
-      //         .default('Bearer ')
-      //         .description('bearer token takes "Bearer " and token'),
-      //       }).unknown(),
-
       params: {
         id: joi.string()
           .required()

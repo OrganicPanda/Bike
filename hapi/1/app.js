@@ -1,42 +1,32 @@
 var hapi = require('hapi')
   , routes = require('./lib/routes')
-  , mongo = require('mongodb');
+  , db = require('./lib/db');
 
-var dbUri = 'mongodb://localhost:27017/bikes-hapi'
-  , db;
+db.init(function(err) {
+  if (err) return console.error('DB Error: Couldn\'t start server!');
 
-var swaggerOptions = {
-	basePath: 'http://localhost:3005',
-	apiVersion: '1.0.0'
-};
+  var server = new hapi.Server('localhost', 3005);
 
-var init = function() {
-	routes.init(db);
+  server.pack.register([{
+    plugin: require('hapi-swagger'),
+    options: {
+      basePath: 'http://localhost:3005',
+      apiVersion: '1.0.0'
+    }
+  }], function(err) {
+    server.route(routes);
+    server.views({
+      path: './templates',
+      engines: { html: require('handlebars') },
+      partialsPath: './templates/withPartials',
+      helpersPath: './templates/helpers',
+      isCached: false
+    });
+    
+    server.start(function(err) {
+      if (err) return console.error('Web Server Error: Couldn\'t start server!');
 
-	var server = new hapi.Server('localhost', 3005);
-
-	server.pack.register([{
-		plugin: require('hapi-swagger'),
-		options: swaggerOptions
-	}], function(err) {
-		server.route(routes.routes);
-		server.views({
-			path: './templates',
-			engines: { html: require('handlebars') },
-			partialsPath: './templates/withPartials',
-			helpersPath: './templates/helpers',
-			isCached: false
-		});
-		
-		server.start();
-	});
-}
-
-mongo.MongoClient.connect(dbUri, {
-	'server': { 'auto_reconnect': true }
-}, function (err, dbObj) {
-  if (err) return console.log(['error', 'database', 'connection'], err);
-  
-  db = dbObj;
-  init();
+      console.log('Server started');
+    });
+  });
 });

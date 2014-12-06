@@ -1,29 +1,6 @@
-var hapi = require('hapi')
-  , joi = require('joi')
-  , handlers = require('./handlers')
+var baseRoutes = require('./routes/base')
   , bikeRoutes = require('./routes/bikes');
 
-var init = function(db) {
-	handlers.init(db);
-};
+var routes = baseRoutes.concat(bikeRoutes);
 
-var routes = [{
-  method: 'GET',
-  path: '/',
-  handler: handlers.index
-}, {
-  method: 'GET',
-  path: '/{path*}',
-  handler: {
-  	directory: {
-  		path: './public',
-  		listing: false,
-  		index: true
-  	}
-  }	
-}].concat(bikeRoutes);
-
-module.exports = {
-	routes: routes,
-	init: init
-};
+module.exports = routes;
