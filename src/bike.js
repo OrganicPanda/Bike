@@ -189,29 +189,6 @@
     // http://www.sheldonbrown.com/rinard/forklengths.htm
     // Wheels are 700c
     // https://www.hybikes.com/wp-content/uploads/2014/06/Bicycle_tire_size_markings-en.png
-    //
-    // Unknowns:
-    // Fork length: http://www.sheldonbrown.com/rinard/forklengths.htm
-    // It's not clear whether the angles given in a bike spec assume:
-    // a) The box described by Bottom Bracket Drop and Chain Stay Length
-    //    is parallel to the ground. This is the method I'm using.
-    // a) The fork length the bike is sold with
-    // b) A default fork length
-    // They never say which method they used although (A) seems likely.
-    // Wheel / Tyre:
-    // --> Tyre inch size tells us (total height x tyre height x tyre width):
-    //                             (28           x 1 5/8       x 1 1/4)
-    // --> That tells us total height (28in): 711.2mm
-    // --> We know rim size (700c): 622mm
-    // --> So tyre height is ((711.2mm - 622mm) / 2): 44.6
-    // --> 44.6mm doesn't match 1 5/8 (41.27500mm) and I'm not sure why!?
-    // --> My tyres are ~25mm (28-622) and my wife's are ~30mm (32-622)
-    // --> Might as well just use that number?
-    // --> Going for 700c-28c for now (622mm + 28mm + 28mm): 678mm
-    //
-    // Saddle height (adjustable but not sure what a 'normal' range is)
-    // Headset length
-    // Stem angle
     this.ankle = {
       right: { x: null, y: null },
       left: { x: null, y: null }
