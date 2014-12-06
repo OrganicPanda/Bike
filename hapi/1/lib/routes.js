@@ -1,14 +1,12 @@
 var hapi = require('hapi')
   , joi = require('joi')
-  // , handlers = require('./handlers')
+  , handlers = require('./handlers')
   , routes;
 
 routes = [{
   method: 'GET',
-  path: '/hello',
-  handler: function (request, reply) {
-		reply('hello world');
-  }
+  path: '/',
+  handler: handlers.index
 }, {
   method: 'GET',
   path: '/{path*}',
