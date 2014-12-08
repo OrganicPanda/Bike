@@ -1,15 +1,23 @@
-var mongo = require('mongodb')
+var mongo = require('mongojs')
   , uri = 'mongodb://localhost:27017/bikes-hapi'
   , bikesDb;
 
-exports.init = function(cb) {
-  mongo.MongoClient.connect(uri, {
-    'server': { 'auto_reconnect': true }
-  }, function (err, db) {
-    bikesDb = db;
-    
-    return cb(err, db);
+module.exports = function() {
+  if (bikesDb) return Promise.resolve(bikesDb);
+
+  return new Promise(function(resolve, reject) {
+    var db = mongo.connect(uri, ['bikes']);
+
+    db.on('error',function(err) {
+      console.log('database error', err);
+    });
+
+    db.on('ready',function() {
+      console.log('database connected');
+    });
+
+    bikesDb = db.bikes;
+
+    resolve(bikesDb);
   });
 };
-
-exports.bikes = bikesDb;

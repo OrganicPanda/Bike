@@ -1,13 +1,14 @@
-var bikes = require('../models/bikes.js');
+var bikes = require('../models/bikes.js')
+  , utilities = require('../utilities.js');
 
-function getBike(request, reply) { 
+function getBike(request, reply) {
   var options = {
     id: request.params.id
   };
 
   bikes.get(options, function(error, result) {
     renderJSON(request, reply, error, result);
-  }); 
+  });
 }
 
 function getBikes(request, reply) {
@@ -16,26 +17,26 @@ function getBikes(request, reply) {
   });
 }
 
-function addBike(request, reply) { 
+function addBike(request, reply) {
   var options = { item: {} } ;
   options.item = createBikeItem(request);
 
   bikes.add(options, function(error, result) {
     renderJSON(request, reply, error, result);
-  }); 
+  });
 }
 
-function updateBike(request, reply) { 
+function updateBike(request, reply) {
   var options = {
     item: {},
     id: request.params.id
   };
-  
+
   options.item = createBikeItem(request);
 
   bikes.update(options, function(error, result) {
     renderJSON(request, reply, error, result);
-  }); 
+  });
 }
 
 // common function for add and update
@@ -45,7 +46,7 @@ function createBikeItem(request) {
   if (request.payload) {
     item = request.payload;
   }
-  
+
   if (request.query.url) {
     item = {
       url: request.query.url,
@@ -55,30 +56,30 @@ function createBikeItem(request) {
     };
   }
   // turn tag string into an array
-  if (Utils.isString(item.tags)) {
+  if (utilities.isString(item.tags)) {
     if (item.tags.indexOf(',') > -1) {
-      item.tags = Utils.trimItemsOfArray(item.tags.split(','));
+      item.tags = utilities.trimItemsOfArray(item.tags.split(','));
     } else {
-      item.tags = [Utils.trim(item.tags)];
+      item.tags = [utilities.trim(item.tags)];
     }
   }
   return item;
 }
 
-function removeBike(request, reply) { 
+function removeBike(request, reply) {
   var options = {
     id: request.params.id
   };
-  
+
   bikes.remove(options, function(error, result) {
     renderJSON(request, reply, error, result);
-  }); 
+  });
 }
 
 // render json out to http stream
 function renderJSON(request, reply, err, result) {
   if (err) {
-    if (Utils.isString(err)) {
+    if (utilities.isString(err)) {
       // error without a code are returned as 500
       reply(Boom.badImplementation(err));
     } else {
