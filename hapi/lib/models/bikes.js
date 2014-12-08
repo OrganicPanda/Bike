@@ -1,13 +1,40 @@
 var db = require('../db')
   , utilities = require('../utilities.js')
   , url = require('url')
+  , joi = require('joi')
   , hoek = require('hoek')
-  , boom = require('boom')
-  , shortid = require('shortid');
+  , boom = require('boom');
+
+var validSize = joi.object({
+  seatTubeLength: joi.number().optional()
+    .description('Seat Tube Length (mm)'),
+  headTubeAngle: joi.number().optional()
+    .description('Head Tube Angle (deg)'),
+  headTubeLength: joi.number().optional()
+    .description('Head Tube Length (mm)'),
+  seatTubeAngle: joi.number().optional()
+    .description('Seat Tube Angle (deg)'),
+  chainStayLength: joi.number().optional()
+    .description('Chain Stay Length (mm)'),
+  bottomBracketDrop: joi.number().optional()
+    .description('Bottom Bracket Drop (mm)'),
+  straightForkLength: joi.number().optional()
+    .description('Straight Fork Length (mm)')
+}).min(1).description('A size object');
+
+var props = {
+  _id: joi.string().description('The bike identifier'),
+  model: joi.string().description('The bike model'),
+  brand: joi.string().description('The bike brand'),
+  url: joi.string().description('A URL for this bike'),
+  sizes: joi.object()
+    .pattern(/.*/, validSize)
+    .min(1)
+    .description('A collection of size objects')
+};
 
 var addBike = function(options, callback) {
   var bikeUrl;
-  options.item.id = shortid.generate();
   options.item.created = new Date();
   options.item.modified = new Date();
 
@@ -34,7 +61,7 @@ var updateBike = function (options, callback) {
 
       // save changes
       db().then(function(bikes) {
-        bikes.update({ 'id': options.id }, doc, function(err, count) {
+        bikes.update({ '_id': options._id }, doc, function(err, count) {
           if (!count || count === 0) {
             callback(boom.notFound('Bike not found', err), null);
           } else {
@@ -50,7 +77,7 @@ var updateBike = function (options, callback) {
 
 var getBike = function(options, callback) {
   db().then(function(bikes) {
-    bikes.findOne({ 'id': options.id }, function(err, doc) {
+    bikes.findOne({ '_id': options._id }, function(err, doc) {
       if (doc) {
         callback(null, utilities.cleanDoc(doc));
       } else {
@@ -74,7 +101,7 @@ var getAllBikes = function(callback) {
 
 var removeBike = function(options, callback) {
   db().then(function(bikes) {
-    bikes.remove({ 'id': options.id }, function(err, doc) {
+    bikes.remove({ '_id': options._id }, function(err, doc) {
       if (!doc) {
         callback(boom.notFound('Bike not found', err), null);
       } else {
@@ -92,6 +119,7 @@ var removeAllBikes = function(callback) {
   });
 };
 
+exports.props = props;
 exports.add = addBike;
 exports.update = updateBike;
 exports.get = getBike;

@@ -9,7 +9,7 @@ module.exports = {
 
 		clone: function( obj ){
 			return( JSON.parse( JSON.stringify( obj ) ));
-		},	
+		},
 
 
 		isString: function (obj) {
@@ -18,10 +18,10 @@ module.exports = {
 
 
 		isArray: function (obj) {
-		    return obj && !(obj.propertyIsEnumerable('length')) 
-		        && typeof obj === 'object' 
+		    return obj && !(obj.propertyIsEnumerable('length'))
+		        && typeof obj === 'object'
 		        && typeof obj.length === 'number';
-		},	
+		},
 
 
 		trim: function (str) {
@@ -50,12 +50,7 @@ module.exports = {
 
 
 		cleanDoc: function(doc){
-			if(this.isArray(doc)){
-				doc = doc[0];
-			}
-			delete doc._id;
-			delete doc.__v;
-			doc = this.clone( doc );
+
 			return doc
 		},
 
@@ -77,7 +72,7 @@ module.exports = {
 								return code;
 							}
 						});
-						data = Marked(data);           
+						data = Marked(data);
 					}
 					callback( err, data );
 				});

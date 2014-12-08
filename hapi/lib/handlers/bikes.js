@@ -3,7 +3,7 @@ var bikes = require('../models/bikes.js')
 
 function getBike(request, reply) {
   var options = {
-    id: request.params.id
+    _id: request.params._id
   };
 
   bikes.get(options, function(error, result) {
@@ -29,7 +29,7 @@ function addBike(request, reply) {
 function updateBike(request, reply) {
   var options = {
     item: {},
-    id: request.params.id
+    _id: request.params._id
   };
 
   options.item = createBikeItem(request);
@@ -47,28 +47,12 @@ function createBikeItem(request) {
     item = request.payload;
   }
 
-  if (request.query.url) {
-    item = {
-      url: request.query.url,
-      title: request.query.title,
-      tags: request.query.tags,
-      description: request.query.description
-    };
-  }
-  // turn tag string into an array
-  if (utilities.isString(item.tags)) {
-    if (item.tags.indexOf(',') > -1) {
-      item.tags = utilities.trimItemsOfArray(item.tags.split(','));
-    } else {
-      item.tags = [utilities.trim(item.tags)];
-    }
-  }
   return item;
 }
 
 function removeBike(request, reply) {
   var options = {
-    id: request.params.id
+    _id: request.params._id
   };
 
   bikes.remove(options, function(error, result) {
