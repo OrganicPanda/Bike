@@ -31,8 +31,6 @@ function updateBike(request, reply) {
     bike: request.payload
   };
 
-  console.log('options', options);
-
   bikes.update(options, function(error, result) {
     renderJSON(request, reply, error, result);
   });

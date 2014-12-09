@@ -1,8 +1,6 @@
 var db = require('../db')
   , mongo = require('mongojs')
-  , url = require('url')
   , joi = require('joi')
-  , hoek = require('hoek')
   , boom = require('boom')
   , merge = require('merge');
 

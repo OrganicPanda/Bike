@@ -2,12 +2,12 @@ var Promise = require('es6-promise').polyfill()
   , hapi = require('hapi')
   , routes = require('./lib/routes');
 
-var server = new hapi.Server('localhost', 3005);
+var server = new hapi.Server('localhost', 3000);
 
 server.pack.register([{
   plugin: require('hapi-swagger'),
   options: {
-    basePath: 'http://localhost:3005',
+    basePath: 'http://localhost:3000',
     apiVersion: '1.0.0'
   }
 }], function(err) {
@@ -15,8 +15,7 @@ server.pack.register([{
   server.views({
     path: './templates',
     engines: { html: require('handlebars') },
-    partialsPath: './templates/withPartials',
-    helpersPath: './templates/helpers',
+    partialsPath: './templates',
     isCached: false
   });
 
