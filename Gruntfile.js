@@ -8,7 +8,7 @@ module.exports = function(grunt) {
           map: false
         },
         files: {
-          'dist/style.css': ['src/style.css']
+          'public/style.css': ['src/style.css']
         }
       }
     },
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
     mkdir: {
       build: {
         options: {
-          create: ['tmp', 'dist']
+          create: ['tmp', 'public']
         },
       },
     },
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
       },
       bike: {
         files: {
-          'dist/bike.min.js': [
+          'public/bike.min.js': [
             'src/bike.js', 'src/canvas-bike.js', 'tmp/ng.js'
           ]
         }
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
     },
 
     'string-replace': {
-      dist: {
+      public: {
         options: {
           replacements: [{
             pattern: /<!-- ?<prod>.*[\n\r]\s*([\S\s]*?)[\n\r].*<\/prod> ?-->/ig,
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
           }]
         },
         files: {
-          'dist/index.html': ['src/index.html']
+          'public/index.html': ['src/index.html']
         }
       }
     }
