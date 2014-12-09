@@ -1,5 +1,4 @@
-var bikes = require('../models/bikes.js')
-  , utilities = require('../utilities.js');
+var bikes = require('../models/bikes.js');
 
 function getBike(request, reply) {
   var options = {
@@ -62,16 +61,9 @@ function removeBike(request, reply) {
 
 // render json out to http stream
 function renderJSON(request, reply, err, result) {
-  if (err) {
-    if (utilities.isString(err)) {
-      // error without a code are returned as 500
-      reply(Boom.badImplementation(err));
-    } else {
-      reply(err);
-    }
-  } else {
-    reply(result).type('application/json; charset=utf-8');
-  }
+  if (err) return reply(Boom.badImplementation(err));
+
+  reply(result).type('application/json; charset=utf-8');
 }
 
 exports.getBike = getBike;

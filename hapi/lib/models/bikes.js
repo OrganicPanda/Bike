@@ -1,6 +1,5 @@
 var db = require('../db')
   , mongo = require('mongojs')
-  , utilities = require('../utilities.js')
   , url = require('url')
   , joi = require('joi')
   , hoek = require('hoek')
@@ -47,7 +46,7 @@ var addBike = function(options, callback) {
           boom.badImplementation('Failed to add bike to db', err), null);
       }
 
-      callback(null, utilities.cleanDoc(doc));
+      callback(null, doc);
     });
   });
 };
@@ -86,7 +85,7 @@ var getBike = function(options, callback) {
   db().then(function(bikes) {
     bikes.findOne({ '_id': mongo.ObjectId(options._id) }, function(err, doc) {
       if (doc) {
-        callback(null, utilities.cleanDoc(doc));
+        callback(null, doc);
       } else {
         callback(boom.notFound('Bike not found'), null);
       }
@@ -112,7 +111,7 @@ var removeBike = function(options, callback) {
       if (!doc) {
         callback(boom.notFound('Bike not found', err), null);
       } else {
-        callback(err, utilities.cleanDoc(doc));
+        callback(err, doc);
       }
     });
   });
