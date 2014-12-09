@@ -1,9 +1,11 @@
 var db = require('../db')
+  , mongo = require('mongojs')
   , utilities = require('../utilities.js')
   , url = require('url')
   , joi = require('joi')
   , hoek = require('hoek')
-  , boom = require('boom');
+  , boom = require('boom')
+  , merge = require('merge');
 
 var validSize = joi.object({
   seatTubeLength: joi.number().optional()
@@ -40,7 +42,10 @@ var addBike = function(options, callback) {
 
   db().then(function(bikes) {
     bikes.insert(options.item, { safe: true }, function (err, doc) {
-      if (err) return callback(boom.badImplementation('Failed to add bike to db', err), null);
+      if (err) {
+        return callback(
+          boom.badImplementation('Failed to add bike to db', err), null);
+      }
 
       callback(null, utilities.cleanDoc(doc));
     });
@@ -50,18 +55,20 @@ var addBike = function(options, callback) {
 var updateBike = function (options, callback) {
   getBike(options, function(err, doc) {
     if (doc) {
-      // explicit property update
-      doc.url = options.item.url;
-      doc.title = options.item.title;
-      doc.tags = options.item.tags;
-      doc.description = options.item.description;
-
-      // update modified timestamp
       doc.modified = new Date();
 
-      // save changes
+      // explicit property update
+      if (options.bike.model) doc.model = options.bike.model;
+      if (options.bike.brand) doc.brand = options.bike.brand;
+      if (options.bike.url) doc.url = options.bike.url;
+      if (options.bike.sizes) {
+        doc.sizes = merge.recursive(true, doc.sizes, options.bike.sizes);
+      }
+
       db().then(function(bikes) {
-        bikes.update({ '_id': options._id }, doc, function(err, count) {
+        var query = { _id: mongo.ObjectId(options._id) };
+
+        bikes.update(query, doc, function(err, count) {
           if (!count || count === 0) {
             callback(boom.notFound('Bike not found', err), null);
           } else {
@@ -77,7 +84,7 @@ var updateBike = function (options, callback) {
 
 var getBike = function(options, callback) {
   db().then(function(bikes) {
-    bikes.findOne({ '_id': options._id }, function(err, doc) {
+    bikes.findOne({ '_id': mongo.ObjectId(options._id) }, function(err, doc) {
       if (doc) {
         callback(null, utilities.cleanDoc(doc));
       } else {
@@ -101,7 +108,7 @@ var getAllBikes = function(callback) {
 
 var removeBike = function(options, callback) {
   db().then(function(bikes) {
-    bikes.remove({ '_id': options._id }, function(err, doc) {
+    bikes.remove({ '_id': mongo.ObjectId(options._id) }, function(err, doc) {
       if (!doc) {
         callback(boom.notFound('Bike not found', err), null);
       } else {

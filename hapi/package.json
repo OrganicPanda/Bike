@@ -23,6 +23,7 @@
     "hoek": "2.10.x",
     "joi": "4.9.x",
     "marked": "0.3.x",
+    "merge": "^1.2.0",
     "mongodb": "1.2.x",
     "mongojs": "^0.17.0",
     "rand-token": "^0.2.1",

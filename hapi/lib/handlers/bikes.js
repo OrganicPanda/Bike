@@ -28,11 +28,11 @@ function addBike(request, reply) {
 
 function updateBike(request, reply) {
   var options = {
-    item: {},
-    _id: request.params._id
+    _id: request.params._id,
+    bike: request.payload
   };
 
-  options.item = createBikeItem(request);
+  console.log('options', options);
 
   bikes.update(options, function(error, result) {
     renderJSON(request, reply, error, result);
