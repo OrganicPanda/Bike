@@ -1,15 +1,21 @@
 var Promise = require('es6-promise').polyfill()
   , hapi = require('hapi')
   , routes = require('./lib/routes')
-  , host = '0.0.0.0'
-  , port = +process.env.PORT || 3000;
+  , env = process.env.NODE_ENV
+  , port = +process.env.PORT || 3000
+  , host = env === 'production'
+             ? '0.0.0.0'
+             : 'localhost'
+  , url = env === 'production'
+            ? 'http://op-bike.herokuapp.com'
+            : 'http://localhost:' + port;
 
 var server = new hapi.Server(host, port);
 
 server.pack.register([{
   plugin: require('hapi-swagger'),
   options: {
-    basePath: 'http://' + host + ':' + port,
+    basePath: url,
     apiVersion: '1.0.0'
   }
 }], function(err) {
