@@ -1,5 +1,5 @@
 var mongo = require('mongojs')
-  , uri = 'mongodb://localhost:27017/bikes-hapi'
+  , uri = process.env.MONGOHQ_URL || 'mongodb://localhost:27017/bikes-hapi'
   , bikesDb;
 
 module.exports = function() {
