@@ -7,7 +7,7 @@ var Promise = require('es6-promise').polyfill()
              ? '0.0.0.0'
              : 'localhost'
   , url = env === 'production'
-            ? 'http://op-bike.herokuapp.com'
+            ? 'http://opbike.herokuapp.com'
             : 'http://localhost:' + port;
 
 var server = new hapi.Server(host, port);
