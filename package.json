@@ -21,7 +21,6 @@
   "homepage": "https://github.com/OrganicPanda/Bike",
   "dependencies": {
     "boom": "2.6.x",
-    "bower": "^1.3.12",
     "cheerio": "^0.18.0",
     "es6-promise": "^2.0.1",
     "express": "^4.10.4",
@@ -30,9 +29,7 @@
     "joi": "4.9.x",
     "merge": "^1.2.0",
     "mongojs": "^0.17.0",
-    "request": "^2.49.0"
-  },
-  "devDependencies": {
+    "request": "^2.49.0",
     "bower": "^1.3.12",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
