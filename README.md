@@ -43,7 +43,9 @@ A little app for helping with bike sizes.
 ### Bugs/Misc
  - Fix saddle positioning
  - Add hands and feet
- - Work out a way to use top tube length instead of reach/stack (Charge) or way a way to estimate reach/stack
+ - Work out a way to use top tube length instead of reach/stack (Charge) or way a way to estimate reach/stack. It might be [From here](http://web.archive.org/web/20120616053134/http://www.incidentalcyclist.com/2008/02/06/another-word-on-bike-fit):
+      + STACK = BB_drop + (Axle_crown_ht + Head_tube_ht) * sin(Head_tube_angle)
+      + REACH = Effective_top_tube – STACK / tan(Seat_tube_angle)
  - Work out head position/size
  - Fork length: http://www.sheldonbrown.com/rinard/forklengths.htm It's not clear whether the angles given in a bike spec assume (They never say which method they used although (A) seems likely):
      + A) The box described by Bottom Bracket Drop and Chain Stay Length is parallel to the ground. This is the method I'm using.
