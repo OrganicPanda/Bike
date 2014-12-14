@@ -8,50 +8,51 @@ A little app for helping with bike sizes.
 ## TODO (Meta TODO: Move these to GH Issues)
 
 ### Add Caveat
- - Work out how big the margin for error currently is
- - State that somewhere
- - Warn users
+ - [ ] Work out how big the margin for error currently is
+ - [ ] State that somewhere
+ - [ ] Warn users
 
 ### Rate bike fit
- - Research a few acceptable measures of bike fit
+ - [ ] Research a few acceptable measures of bike fit
 
 ### Offer quick rider size toggles
- - Adult/Child (Maybe an age slider?)
- - Male/Female (Probably not a slider!)
+ - [ ] Adult/Child (Maybe an age slider?)
+ - [ ] Male/Female (Probably not a slider!)
 
 ### Different Bike types
- - Road 
- - MTB
- - Do women's bikes need their own category? Are they are different enough?
- - Handlebar types (Straight, dutch, drop, tri)
+ - [x] Road 
+ - [ ] MTB
+ - [ ] Do women's bikes need their own category? Are they are different enough?
+ - [ ] Handlebar types (Straight, dutch, drop, tri)
+ - [ ] Tandem?
 
 ### Different rider positions
- - Standing (pedalling)
- - Standing (stopped, over top tube)
- - Stopped at the lights (bum on saddle, tip toe on floor)
- - Elbows bent
+ - [ ] Standing (pedalling)
+ - [ ] Standing (stopped, over top tube)
+ - [ ] Stopped at the lights (bum on saddle, tip toe on floor)
+ - [ ] Elbows bent
 
 ### Supply a list of default bikes
- - Scrape sizes to begin with
- - Find a good source of more accurate information (those catalogues in bike shops might be available online somewhere)
- - Store that somewhere
- - Provide an API 
+ - [x] Scrape sizes to begin with
+ - [ ] Find a good source of more accurate information (those catalogues in bike shops might be available online somewhere)
+ - [x] Store that somewhere
+ - [x] Provide an API 
 
 ### Give a bike recommendation? 
- - Link to buy?
+ - [ ] Link to buy?
 
 ### Bugs/Misc
- - Fix saddle positioning
- - Add hands and feet
- - Work out a way to use top tube length instead of reach/stack (Charge) or way a way to estimate reach/stack. It might be [From here](http://web.archive.org/web/20120616053134/http://www.incidentalcyclist.com/2008/02/06/another-word-on-bike-fit):
+ - [ ] Fix saddle positioning
+ - [ ] Add hands and feet
+ - [ ] Work out a way to use top tube length instead of reach/stack (Charge) or way a way to estimate reach/stack. It might be [From here](http://web.archive.org/web/20120616053134/http://www.incidentalcyclist.com/2008/02/06/another-word-on-bike-fit):
       + STACK = BB_drop + (Axle_crown_ht + Head_tube_ht) * sin(Head_tube_angle)
       + REACH = Effective_top_tube – STACK / tan(Seat_tube_angle)
- - Work out head position/size
- - Fork length: http://www.sheldonbrown.com/rinard/forklengths.htm It's not clear whether the angles given in a bike spec assume (They never say which method they used although (A) seems likely):
+ - [ ] Work out head position/size
+ - [ ] Fork length: http://www.sheldonbrown.com/rinard/forklengths.htm It's not clear whether the angles given in a bike spec assume (They never say which method they used although (A) seems likely):
      + A) The box described by Bottom Bracket Drop and Chain Stay Length is parallel to the ground. This is the method I'm using.
      + B) The fork length the bike is sold with
      + C) A default fork length
- - Wheel / Tyre:
+ - [ ] Wheel / Tyre:
      + Tyre inch size tells us (total height x tyre height x tyre width) (28 x 1 5/8 x 1 1/4)
      + That tells us total height (28in): 711.2mm
      + We know rim size (700c): 622mm
@@ -60,11 +61,11 @@ A little app for helping with bike sizes.
      + My tyres are ~25mm (28-622) and my wife's are ~30mm (32-622)
      + Might as well just use that number?
      + Going for 700c-28c for now (622mm + 28mm + 28mm): 678mm
- - Saddle height (adjustable but not sure what a 'normal' range is)
- - Headset length
- - Stem angle
- - Pan/zoom
- - Size overlays / blueprint mode
+ - [ ] Saddle height (adjustable but not sure what a 'normal' range is)
+ - [ ] Headset length
+ - [ ] Stem angle
+ - [ ] Pan/zoom
+ - [ ] Size overlays / blueprint mode
 
 ## Useful links:
 ### Size Guides
