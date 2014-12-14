@@ -7,10 +7,15 @@
 
 		<title>Bike</title>
 
-    <link rel="stylesheet" href="style.css">
-    <script src="../vendor/angular/angular.min.js"></script>
+    <!-- <prod>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./vendor/angular/angular.min.js"></script>
+         </prod> -->
 
-    
+    <!-- <dev> -->
+    <link rel="stylesheet" href="./style.css">
+    <script src="./vendor/angular/angular.js"></script>
+    <!-- </dev> -->
 	</head>
 	<body op-bike ng-init="navOpen = false">
   	<header>
@@ -314,8 +319,14 @@
       <canvas op-canvas-bike></canvas>
     </main>
 
-    <script src="bike.min.js"></script>
+    <!-- <prod>
+    <script src="./bike.min.js"></script>
+         </prod> -->
 
-    
+    <!-- <dev> -->
+    <script src="./bike.js"></script>
+    <script src="./canvas-bike.js"></script>
+    <script src="./ng.js"></script>
+    <!-- </dev> -->
 	</body>
 </html>

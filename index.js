@@ -1,6 +1,5 @@
 var Promise = require('es6-promise').polyfill()
   , hapi = require('hapi')
-  , routes = require('./lib/routes')
   , env = process.env.NODE_ENV
   , port = +process.env.PORT || 3000
   , host = env === 'production'
@@ -13,17 +12,24 @@ var Promise = require('es6-promise').polyfill()
 var server = new hapi.Server(host, port);
 
 server.pack.register([{
+  plugin: require('Bike-API'),
+  options: { route: '/api' }
+}, {
+  plugin: require('Bike-App'),
+  options: { route: '/' }
+}, {
   plugin: require('hapi-swagger'),
   options: {
     basePath: url,
     apiVersion: '1.0.0'
   }
 }], function(err) {
-  server.route(routes);
+  if (err) {
+    console.error('Couldn\'t start server!');
+    throw err
+  };
 
-  server.start(function(err) {
-    if (err) return console.error('Couldn\'t start server!');
-
+  server.start(function() {
     console.log('Server started at', server.info.uri);
   });
 });

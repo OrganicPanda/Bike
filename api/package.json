@@ -1,15 +1,14 @@
 {
-  "name": "Bike",
+  "name": "Bike-API",
   "version": "0.0.1",
-  "description": "Bike size calculator",
-  "main": "bike.js",
+  "description": "Bike API",
+  "main": "index.js",
   "engines": {
     "node": "0.10.x",
     "npm": "2.1.x"
   },
   "scripts": {
-    "start": "node index.js",
-    "postinstall": "npm link ./api && npm link ./app"
+    "start": "echo \"Error: Can't run directly\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -22,10 +21,12 @@
   },
   "homepage": "https://github.com/OrganicPanda/Bike",
   "dependencies": {
-    "es6-promise": "^2.0.1",
-    "hapi": "^7.5.2",
-    "hapi-swagger": "0.5.x",
+    "boom": "^2.6.1",
+    "cheerio": "^0.18.0",
+    "clone": "^0.2.0",
+    "joi": "^4.9.0",
+    "merge": "^1.2.0",
     "mongojs": "^0.17.0",
-    "request": "^2.49.0"
+    "url-join": "0.0.1"
   }
 }
