@@ -1,15 +1,14 @@
 {
-  "name": "Bike",
+  "name": "Bike-Import",
   "version": "0.0.1",
-  "description": "Bike size calculator",
-  "main": "bike.js",
+  "description": "Bike Import",
+  "main": "scrape.js",
   "engines": {
     "node": "0.10.x",
     "npm": "2.1.x"
   },
   "scripts": {
-    "start": "node index.js",
-    "postinstall": "npm link ./api && npm link ./app"
+    "start": "node scrape.js"
   },
   "repository": {
     "type": "git",
@@ -22,9 +21,8 @@
   },
   "homepage": "https://github.com/OrganicPanda/Bike",
   "dependencies": {
+    "cheerio": "^0.18.0",
     "es6-promise": "^2.0.1",
-    "hapi": "^7.5.2",
-    "hapi-swagger": "0.5.x",
-    "mongojs": "^0.17.0"
+    "request": "^2.51.0"
   }
 }

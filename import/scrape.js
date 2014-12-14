@@ -49,6 +49,8 @@ var extractBikes = function(body) {
 
 var fetchGeometry = function(bikes) {
   var doFetch = function(bike) {
+    console.log('bike.geometryUrl', bike.geometryUrl);
+
     return get(bike.geometryUrl)
       .then(function(geometryData) {
         bike.geometryData = geometryData;
@@ -60,28 +62,58 @@ var fetchGeometry = function(bikes) {
   return Promise.all(bikes.map(doFetch));
 };
 
-var parseGeometryRow = function(row) {
-  return {
-    label: row.children('th').text(),
-    xs: row.children('td').eq(0).text(),
-    s: row.children('td').eq(1).text(),
-    m: row.children('td').eq(2).text(),
-    l: row.children('td').eq(3).text(),
-    xl: row.children('td').eq(4).text()
-  };
+var parseGeometryRow = function(row, sizes) {
+  var cells = row.children('td')
+    , parsed = {
+        label: row.children('th').text()
+      };
+
+  sizes.forEach(function(size, index) {
+    parsed[size] = cells.eq(index).text();
+  });
+
+  return parsed;
+};
+
+var extractSizes = function($) {
+  var sizes = []
+    , row = $('thead tr').eq(0)
+    , headers = row.children('th');
+
+  return headers.map(function() {
+    return $(this).text();
+  }).get().filter(function(size) {
+    return size !== '';
+  });
+};
+
+var requiredProperty = function(prop) {
+  return !Object.keys(bikeProps).every(function(key) {
+    return bikeProps[key] !== prop.label;
+  });
 };
 
 var parseGeometry = function(bikes) {
   bikes.forEach(function(bike) {
     var $ = cheerio.load(bike.geometryData)
+      , sizes = extractSizes($)
       , rows = $('tbody tr')
-      , extracted = {};
+      , extracted = [];
 
     rows.each(function() {
-      var parsed = parseGeometryRow($(this));
+      var parsed = parseGeometryRow($(this), sizes);
 
-      extracted[parsed.label] = parsed;
+      extracted.push(parsed);
     });
+
+    extracted = extracted.filter(requiredProperty);
+
+    // [ { label: 'Frame Size C-T',
+    //     XS: '49cm',
+    //     S: '52cm',
+    //     M: '54cm',
+    //     L: '56cm',
+    //     XL: '58cm' }]
 
     bike.geometryData = extracted;
   });
@@ -92,16 +124,18 @@ var parseGeometry = function(bikes) {
 var save = function(bikes) {
   var doSave = function(bike) {
     return new Promise(function(resolve, reject) {
-      db.bikes.findAndModify({
-        query: { id: bike.id },
-        update: bike,
-        new: true,
-        upsert: true
-      }, function(err, doc) {
-        if (err) reject(err);
+      // db.bikes.findAndModify({
+      //   query: { id: bike.id },
+      //   update: bike,
+      //   new: true,
+      //   upsert: true
+      // }, function(err, doc) {
+      //   if (err) reject(err);
 
-        resolve(doc);
-      });
+      //   resolve(doc);
+      // });
+      console.log('save', bike);
+      resolve(bike);
     });
   };
 
