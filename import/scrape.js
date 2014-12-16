@@ -69,7 +69,7 @@ var parseGeometryRow = function(row, sizes) {
       };
 
   sizes.forEach(function(size, index) {
-    parsed[size] = cells.eq(index).text();
+    parsed[size] = parseFloat(cells.eq(index).text());
   });
 
   return parsed;
@@ -87,10 +87,36 @@ var extractSizes = function($) {
   });
 };
 
-var requiredProperty = function(prop) {
-  return !Object.keys(bikeProps).every(function(key) {
-    return bikeProps[key] !== prop.label;
+var keyForProp = function(prop) {
+  for (var key in bikeProps) {
+    if (bikeProps[key] === prop) return key;
+  }
+};
+
+var propForKey = function(key) {
+  return bikeProps[key];
+};
+
+var requiredProp = function(prop) {
+  return !!keyForProp(prop.label);
+};
+
+var compileSizes = function(properties) {
+  var sizes = {};
+
+  properties.forEach(function(property) {
+    var label = keyForProp(property.label);
+
+    Object.keys(property).filter(function(key) {
+      return key !== 'label';
+    }).forEach(function(key) {
+      if (!sizes[key]) sizes[key] = {};
+
+      sizes[key][label] = property[key];
+    });
   });
+
+  return sizes;
 };
 
 var parseGeometry = function(bikes) {
@@ -106,16 +132,9 @@ var parseGeometry = function(bikes) {
       extracted.push(parsed);
     });
 
-    extracted = extracted.filter(requiredProperty);
+    extracted = extracted.filter(requiredProp);
 
-    // [ { label: 'Frame Size C-T',
-    //     XS: '49cm',
-    //     S: '52cm',
-    //     M: '54cm',
-    //     L: '56cm',
-    //     XL: '58cm' }]
-
-    bike.geometryData = extracted;
+    bike.sizes = compileSizes(extracted);
   });
 
   return Promise.resolve(bikes);

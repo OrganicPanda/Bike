@@ -2,7 +2,6 @@
   "name": "Bike-App",
   "version": "0.0.1",
   "description": "Bike App",
-  "main": "index.js",
   "engines": {
     "node": "0.10.x",
     "npm": "2.1.x"
