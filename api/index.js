@@ -1,4 +1,4 @@
-var routes = require('./lib/routes')
+var routes = require('./routes')
   , clone = require('clone')
   , urljoin = require('url-join');
 

@@ -1,17 +1,17 @@
-var bikes = require('../models/bikes.js');
+var bike = require('Bike-Lib/models/bike');
 
 function getBike(request, reply) {
   var options = {
     _id: request.params._id
   };
 
-  bikes.get(options, function(error, result) {
+  bike.get(options, function(error, result) {
     renderJSON(request, reply, error, result);
   });
 }
 
 function getBikes(request, reply) {
-  bikes.getAll(function(error, result) {
+  bike.getAll(function(error, result) {
     renderJSON(request, reply, error, result);
   });
 }
@@ -20,7 +20,7 @@ function addBike(request, reply) {
   var options = { item: {} } ;
   options.item = createBikeItem(request);
 
-  bikes.add(options, function(error, result) {
+  bike.add(options, function(error, result) {
     renderJSON(request, reply, error, result);
   });
 }
@@ -31,7 +31,7 @@ function updateBike(request, reply) {
     bike: request.payload
   };
 
-  bikes.update(options, function(error, result) {
+  bike.update(options, function(error, result) {
     renderJSON(request, reply, error, result);
   });
 }
@@ -52,7 +52,7 @@ function removeBike(request, reply) {
     _id: request.params._id
   };
 
-  bikes.remove(options, function(error, result) {
+  bike.remove(options, function(error, result) {
     renderJSON(request, reply, error, result);
   });
 }

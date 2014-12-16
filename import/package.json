@@ -8,7 +8,8 @@
     "npm": "2.1.x"
   },
   "scripts": {
-    "start": "node scrape.js"
+    "start": "node scrape.js",
+    "postinstall": "npm link ../lib"
   },
   "repository": {
     "type": "git",
@@ -21,8 +22,6 @@
   },
   "homepage": "https://github.com/OrganicPanda/Bike",
   "dependencies": {
-    "cheerio": "^0.18.0",
-    "es6-promise": "^2.0.1",
-    "request": "^2.51.0"
+
   }
 }

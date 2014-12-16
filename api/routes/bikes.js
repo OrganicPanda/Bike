@@ -1,6 +1,6 @@
 var hapi = require('hapi')
   , joi = require('joi')
-  , bike = require('../models/bikes')
+  , bike = require('Bike-Lib/models/bike')
   , handlers = require('../handlers/bikes');
 
 module.exports = [{

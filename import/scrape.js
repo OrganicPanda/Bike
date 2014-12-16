@@ -1,7 +1,7 @@
 var request = require('request')
   , Promise = require('es6-promise').Promise
   , cheerio = require('cheerio')
-  , db = require('./db');
+  , db = require('Bike-Lib/db');
 
 var baseUrl = 'http://www.chargebikes.com';
 

@@ -7,7 +7,8 @@
     "npm": "2.1.x"
   },
   "scripts": {
-    "start": "echo \"Error: Can't run directly\" && exit 1"
+    "start": "echo \"Error: Can't run directly\" && exit 1",
+    "postinstall": "npm link ../lib"
   },
   "repository": {
     "type": "git",
@@ -20,12 +21,8 @@
   },
   "homepage": "https://github.com/OrganicPanda/Bike",
   "dependencies": {
-    "boom": "^2.6.1",
-    "cheerio": "^0.18.0",
     "clone": "^0.2.0",
-    "joi": "^4.9.0",
-    "merge": "^1.2.0",
-    "mongojs": "^0.17.0",
+    "joi": "^5.0.2",
     "url-join": "0.0.1"
   }
 }
