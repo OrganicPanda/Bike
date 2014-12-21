@@ -1,7 +1,7 @@
 var request = require('request')
   , Promise = require('es6-promise').Promise
   , cheerio = require('cheerio')
-  , db = require('Bike-Lib/db');
+  , bikeModel = require('Bike-Lib/models/bike');
 
 var baseUrl = 'http://www.chargebikes.com';
 
@@ -26,31 +26,34 @@ var get = function(url) {
 };
 
 var extractBikes = function(body) {
-  var bikeUrls = body.match(/url: ?"(.*?)"/ig)
-    , bikeUrl = /url: ?"(.*?)"/i
+  var pattern = 'url: ?"(.*?)".*?title: ?"(.*?)"'
+    , bikeItems = body.match(new RegExp(pattern, 'ig'))
+    , meta = new RegExp(pattern, 'i')
     , ignore = /(bicycle-collection|parts-collection)/i
     , results = [];
 
-  return Promise.resolve(bikeUrls.filter(function(url) {
-    return !url.match(ignore);
-  }).map(function(url) {
-    return url.match(bikeUrl)[1];
-  }).map(function(url) {
-    var bits = url.split('/')
-      , id = bits[bits.length - 1];
+  return Promise.resolve(bikeItems.filter(function(bikeItem) {
+    return !bikeItem.match(ignore);
+  }).map(function(bikeItem) {
+    var metadata = bikeItem.match(meta);
 
     return {
-      id: id,
-      url: baseUrl + url,
-      geometryUrl: baseUrl + '/geometry/' + id + '.dat'
-    }
+      url: baseUrl + metadata[1],
+      model: metadata[2],
+      brand: 'Charge'
+    };
+  }).map(function(bikeItem) {
+    var urlBits = bikeItem.url.split('/')
+      , id = urlBits[urlBits.length - 1];
+
+    bikeItem.geometryUrl = baseUrl + '/geometry/' + id + '.dat';
+
+    return bikeItem;
   }));
 };
 
 var fetchGeometry = function(bikes) {
   var doFetch = function(bike) {
-    console.log('bike.geometryUrl', bike.geometryUrl);
-
     return get(bike.geometryUrl)
       .then(function(geometryData) {
         bike.geometryData = geometryData;
@@ -141,24 +144,7 @@ var parseGeometry = function(bikes) {
 };
 
 var save = function(bikes) {
-  var doSave = function(bike) {
-    return new Promise(function(resolve, reject) {
-      // db.bikes.findAndModify({
-      //   query: { id: bike.id },
-      //   update: bike,
-      //   new: true,
-      //   upsert: true
-      // }, function(err, doc) {
-      //   if (err) reject(err);
-
-      //   resolve(doc);
-      // });
-      console.log('save', bike);
-      resolve(bike);
-    });
-  };
-
-  return Promise.all(bikes.map(doSave));
+  return Promise.all(bikes.map(bikeModel.add));
 };
 
 get(baseUrl + '/js/main.js')
@@ -167,7 +153,10 @@ get(baseUrl + '/js/main.js')
   .then(parseGeometry)
   .then(save)
   .then(function(bikes) {
+    // TODO: find out why node/es6-promise doesn't like `save`
     console.log('Bikes Saved');
   }).catch(function(error) {
-    console.log("Failed!", error);
-  });
+    console.log('Failed!', error);
+  }).done();
+
+console.log('here');
