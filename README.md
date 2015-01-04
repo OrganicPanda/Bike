@@ -48,14 +48,35 @@ A little app for helping with bike sizes.
       + STACK = BB_drop + (Axle_crown_ht + Head_tube_ht) * sin(Head_tube_angle)
       + REACH = Effective_top_tube – STACK / tan(Seat_tube_angle)
       
-| Brand       | Stack/Reach | ETT | ATT | Fork  Length | Stand Over | Front-Center | Wheel-base | Notes                     |
-|-------------|-------------|-----|-----|--------------|------------|--------------|------------|---------------------------|
-| Charge      |             | Y   | Y   | Y            | Y          |              |            |                           |
-| Boardman    | Y (elite)   | Y   |     |              |            |              |            |                           |
-| Giant       | Y           |     |     |              | Y          |              | Y          |                           |
-| Specialized | Y (top end) | Y   |     |              | Y          | Y            | Y          |                           |
-| Bianchi     | Y           | Y   | Y   |              |            | Y            |            | Only some bikes and JPG!! |
-| Hoy         | Y           | Y   |     | Y            | Y          | Y            |            |                           |
+Brands that have data (ordered by usefulness):
+
+| Brand       | Stack/Reach | ETT | ATT | Fork  Length | Stand Over | Front-Center | Wheel-base | Complete | Guess | Notes                            |
+|-------------|-------------|-----|-----|--------------|------------|--------------|------------|----------|-------|----------------------------------|
+| EDDY MERCKX | Y           | Y   |     | Y            |            | Y            | Y          | Y        |       | Perfect                          |
+| Kona        | Y           | Y   |     |              | Y          | Y            | Y          | Y        |       | Perfect                          |
+| Genesis     | Y           | Y   |     |              | Y          |              | Y          | Y        |       | Perfect                          |
+| Giant       | Y           |     |     |              | Y          |              | Y          | Y        |       |                                  |
+| Trek        | Y           | Y   |     |              | Y          |              | Y          | Y        |       | Some don't have Stack/Reach      |
+| Hoy         | Y           | Y   |     | Y            | Y          | Y            |            | Y        |       | Not kids bikes                   |
+| Boardman    | Y           | Y   |     |              |            |              |            | Y        |       | Only Elite                       |
+| Specialized | Y           | Y   |     |              | Y          | Y            | Y          | Y        |       | Only top end                     |
+| Colnago     | Y           |     | Y   |              |            | Y            |            | Y        |       | Only top end                     |
+| Pinarello   | Y           | Y   |     | Y            |            | Y            |            | Y        |       | No MTB/Kids                      |
+| Jamis       |             | Y   |     |              | Y          |              | Y          |          | Y     | Stack/Reach for roady bikes only |
+| Ridgeback   |             | Y   |     |              | Y          |              | Y          |          | Y     | Most bikes covered               |
+| Charge      |             | Y   | Y   | Y            | Y          |              |            |          | Y     |                                  |
+| Cannondale  | Y           | Y   |     |              | Y          | Y            | Y          | Y        |       | JPG!!                            |
+| Cervélo     | Y           | Y   |     |              | Y          | Y            |            | Y        |       | PDF!                             |
+| Bianchi     | Y           | Y   | Y   |              |            | Y            |            | Y        |       | Only top end and JPG!!           |
+
+Brands with no geometry data:
+ - Brompton
+ - Claud Butler
+ - Dawes (A few bikes have geometry but even then not enough to even guess && PDF!)
+ - Gary Fisher (Sorry dad!)
+ - Mongoose (Has the data but JPG and tiny/poor quality)
+ - Pashley
+ - Raleigh (Has data for top bikes but JPG)
 
  - [ ] Work out head position/size
  - [ ] Fork length: http://www.sheldonbrown.com/rinard/forklengths.htm It's not clear whether the angles given in a bike spec assume (They never say which method they used although (A) seems likely):

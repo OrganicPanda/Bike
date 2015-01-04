@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/OrganicPanda/Bike",
   "dependencies": {
+    "boom": "^2.6.1",
     "clone": "^0.2.0",
     "joi": "^5.0.2",
     "url-join": "0.0.1"

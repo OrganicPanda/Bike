@@ -1,33 +1,33 @@
-var bike = require('Bike-Lib/models/bike');
+var bikeModel = require('Bike-Lib/models/bike')
+  , boom = require('boom');
 
 function getBike(request, reply) {
   var options = {
     _id: request.params._id
   };
 
-  bike.get(options).then(function(result) {
+  bikeModel.get(options).then(function(result) {
     render(request, reply, result);
   }, function(err) {
-    error(request, reply, err);
+    reply(boom.notFound('Bike not found'));
   });
 }
 
 function getBikes(request, reply) {
-  bike.getAll().then(function(result) {
+  bikeModel.getAll().then(function(result) {
     render(request, reply, result);
   }, function(err) {
-    error(request, reply, err);
+    reply(boom.badImplementation(err));
   });
 }
 
 function addBike(request, reply) {
-  var options = { item: {} } ;
-  options.item = createBikeItem(request);
+  var bike = createBikeItem(request);
 
-  bike.add(options).then(function(result) {
+  bikeModel.add(bike).then(function(result) {
     render(request, reply, result);
   }, function(err) {
-    error(request, reply, err);
+    reply(boom.badRequest(err));
   });
 }
 
@@ -37,10 +37,10 @@ function updateBike(request, reply) {
     bike: request.payload
   };
 
-  bike.update(options).then(function(result) {
+  bikeModel.update(options).then(function(result) {
     render(request, reply, result);
   }, function(err) {
-    error(request, reply, err);
+    reply(boom.badRequest(err));
   });
 }
 
@@ -60,19 +60,15 @@ function removeBike(request, reply) {
     _id: request.params._id
   };
 
-  bike.remove(options).then(function(result) {
+  bikeModel.remove(options).then(function(result) {
     render(request, reply, result);
   }, function(err) {
-    error(request, reply, err);
+    reply(boom.badRequest(err));
   });
 }
 
 function render(request, reply, result) {
   reply(result).type('application/json; charset=utf-8');
-}
-
-function error(request, reply, err) {
-  return reply(Boom.badImplementation(err));
 }
 
 exports.getBike = getBike;
