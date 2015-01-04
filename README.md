@@ -53,11 +53,11 @@ Brands that have data (ordered by usefulness):
 | Brand       | Stack/Reach | ETT | ATT | Fork  Length | Stand Over | Front-Center | Wheel-base | Complete | Guess | Notes                            |
 |-------------|-------------|-----|-----|--------------|------------|--------------|------------|----------|-------|----------------------------------|
 | EDDY MERCKX | Y           | Y   |     | Y            |            | Y            | Y          | Y        |       | Perfect                          |
-| Kona        | Y           | Y   |     |              | Y          | Y            | Y          | Y        |       | Perfect                          |
-| Genesis     | Y           | Y   |     |              | Y          |              | Y          | Y        |       | Perfect                          |
-| Giant       | Y           |     |     |              | Y          |              | Y          | Y        |       |                                  |
-| Trek        | Y           | Y   |     |              | Y          |              | Y          | Y        |       | Some don't have Stack/Reach      |
+| Kona        | Y           | Y   |     |              | Y          | Y            | Y          | Y        |       | Perfect (no fork length)         |
+| Genesis     | Y           | Y   |     |              | Y          |              | Y          | Y        |       | Perfect (no fork length)         |
 | Hoy         | Y           | Y   |     | Y            | Y          | Y            |            | Y        |       | Not kids bikes                   |
+| Giant       | Y           |     |     |              | Y          |              | Y          | Y        |       | Some don't have Stack/Reach      |
+| Trek        | Y           | Y   |     |              | Y          |              | Y          | Y        |       | Some don't have Stack/Reach      |
 | Boardman    | Y           | Y   |     |              |            |              |            | Y        |       | Only Elite                       |
 | Specialized | Y           | Y   |     |              | Y          | Y            | Y          | Y        |       | Only top end                     |
 | Colnago     | Y           |     | Y   |              |            | Y            |            | Y        |       | Only top end                     |
