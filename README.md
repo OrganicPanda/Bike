@@ -97,6 +97,7 @@ Brands with no geometry data:
  - [ ] Stem angle
  - [ ] Pan/zoom
  - [ ] Size overlays / blueprint mode
+ - [ ] [Fix flicker](http://stackoverflow.com/questions/3461441/prevent-flicker-on-webkit-transition-of-webkit-transform/3921870#3921870)
 
 ## Useful links:
 ### Size Guides
